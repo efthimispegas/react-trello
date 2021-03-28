@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# React Trello Kanban
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a personal endeavor to create a task organizer web app that mimicks the UI and funcionality of the famous Trello app.
 
 ## Available Scripts
 
