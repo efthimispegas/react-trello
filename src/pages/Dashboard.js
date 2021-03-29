@@ -10,13 +10,10 @@ const Dashboard = () => {
 
   const getBoards = async () => {
     const { data } = await axios.get('/boards');
-    console.log('===============');
-    console.log('[Dashboard] data from axios:', data);
-    console.log('===============');
     if(data) {
       setBoards(data);
     }
-  }
+  };
 
   useEffect(() => {
     getBoards();
