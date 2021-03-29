@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 import axios from '../config/agent';
 import mock from '../mocks/$mock';
+import CreateBoard from './CreateBoard';
 
 mock(axios);
 
@@ -20,18 +22,21 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <section className='dashboard'>
-      <h1>Welcome, Tim</h1>
-      <h2>Your Boards</h2>
-      <div className='boards'>
-        {boards.map((board) => (
-          <Link key={board._id} to='/board' className='board-card'>
-            {board.title}
-          </Link>
-        ))}
-        <button className='board-card create-board-card'>Create new board</button>
-      </div>
-    </section>
+    <Fragment>
+      <Navbar />
+      <section className='dashboard'>
+        <h1>Welcome, Tim</h1>
+        <h2>Your Boards</h2>
+        <div className='boards'>
+          {boards.map((board) => (
+            <Link key={board._id} to={`/board/${board._id}`} className='board-card'>
+              {board.title}
+            </Link>
+          ))}
+          <CreateBoard />
+        </div>
+      </section>
+    </Fragment>
   );
 };
 
