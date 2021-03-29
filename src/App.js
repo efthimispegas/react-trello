@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 import './App.scss';
 import Navbar from './components/Navbar';
@@ -10,6 +12,7 @@ import Board from './pages/Board';
 const App = () => {
   return (
     <Fragment>
+      <Provider store={store}>
         <Router>
           <Fragment>
             <Navbar />
@@ -20,6 +23,7 @@ const App = () => {
             </Switch>
           </Fragment>
         </Router>
+      </Provider>
     </Fragment>
   );
 };
