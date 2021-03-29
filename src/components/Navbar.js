@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
     <nav className='navbar'>
-      <h2>Home</h2>
-      <h2>TrelloClone</h2>
-      <h2>Account</h2>
+      <Link to='/dashboard'>Home</Link>
+      <Link to='/dashboard'>React Trello</Link>
+      <Link to='/'>Logout</Link>
     </nav>
   );
 };
