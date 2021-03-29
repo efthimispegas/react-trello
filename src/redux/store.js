@@ -1,16 +1,22 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import * as alert from './alert';
+import { createLogger } from 'redux-logger';
+import * as boards from './boards';
 
-const initialState = {};
+// Create logger
+const logger = createLogger({ diff: true, collapsed: true });
 
-const middleWare = [thunk];
+// Create middleware
+const middleWare = [thunk, logger];
 
 const rootReducer = combineReducers({
   // Reducer for alerts
-  alert: alert.reducer,
+  boards: boards.reducer
 });
+
+// Configure store
+const initialState = {};
 
 const store = createStore(
   rootReducer,
