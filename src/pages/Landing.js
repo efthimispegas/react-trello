@@ -8,8 +8,12 @@ const Landing = () => {
       <nav className='top'>
         <h2>React Trello</h2>
         <div>
-          <Button color='inherit'>Login</Button>
-          <Button variant='contained'>Sign Up</Button>
+          <Button color='inherit'>
+            <Link to='/login'>Login</Link>
+          </Button>
+          <Button variant='contained'>
+            <Link to='/register' className='link'>Sign Up</Link>
+          </Button>
         </div>
       </nav>
       <div className='landing-inner'>
@@ -17,7 +21,7 @@ const Landing = () => {
         <p>Just like <a href='https://trello.com/'>Trello</a>, but made by one developer!</p>
         <div className='buttons'>
           <Button variant='outlined' color='inherit'>
-            <Link to='/dashboard'>Continue</Link>
+            <Link to='/register' className='link'>Register</Link>
           </Button>
         </div>
       </div>

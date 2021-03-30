@@ -1,11 +1,10 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Navbar from '../components/Navbar';
-import axios from '../config/agent';
 import CreateBoard from './CreateBoard';
 import { actions as boardsActions } from '../redux/boards';
 
@@ -20,8 +19,8 @@ const Dashboard = (props) => {
     <Fragment>
       <Navbar />
       <section className='dashboard'>
-        <h1>Welcome, Tim</h1>
-        <h2>Your Boards</h2>
+        <Typography component='h1' variant='h4'>Welcome, Tim</Typography>
+        <Typography component='h2' variant='h5'>Your Boards</Typography>
         {props.boards.length === 0 && <CircularProgress className='loading' />}
         <div className='boards'>
           {props.boards.map((board) => (
