@@ -28,7 +28,7 @@ export default {
    * @param { MockMethodParams }
    * @returns { MockResponse }
    */
-  get({ values }) {
-    return [200, boards.find(board => board._id === values._id)]
+  get({ params }) {
+    return [200, boards.find(board => board._id === params.id)];
   }
 };

@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
-import { useHistory, withRouter } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 import { Modal, TextField, Button } from '@material-ui/core';
 import useStyles from '../utils/modalStyles';
+import { actions as boardActions } from '../redux/boards';
 
-const CreateBoard = () => {
-  const history = useHistory();
+const CreateBoard = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
 
+  useEffect(() => {
+    // console.log('===============');
+    // console.log('[CreateBoard]:',props);
+    // console.log('===============');
+  }, [])
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    // createBoard(title);
+    props.addBoard({ title }, props.history);
+    setOpen(false);
   };
 
   const body = (
@@ -49,4 +59,19 @@ const CreateBoard = () => {
   );
 };
 
-export default withRouter(CreateBoard);
+CreateBoard.propTypes = {
+  addBoard: PropTypes.func.isRequired
+};
+CreateBoard.defaultProps = {};
+
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispathToProps = dispatch => {
+  return {
+    addBoard: bindActionCreators(boardActions.addBoard, dispatch)
+  };
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(withRouter(CreateBoard));

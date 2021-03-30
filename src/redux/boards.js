@@ -35,7 +35,7 @@ const getBoards = () => async dispatch => {
 // Get a specific board by id
 const getBoardById = id => async dispatch => {
   try {
-    const { data } = await axios.get(`/boards/:${id}`);
+    const { data } = await axios.get(`/board`, { params: { id } });
     dispatch({
       type: GET_BOARD,
       payload: data
@@ -52,13 +52,15 @@ const getBoardById = id => async dispatch => {
 };
 
 // Create a new board
-const addBoard = (data) => async dispatch => {
+const addBoard = (_data, history) => async dispatch => {
   try {
-    await axios.post('boards/new', data);
+    const { data } = await axios.post('/boards/new', _data);
     dispatch({
       type: ADD_BOARD,
-      paylaod: data
+      payload: data
     });
+    // Navigate to the newly created board
+    history.push(`/board/${data._id}`);
   } catch (error) {
     dispatch({
       type: BOARD_ERROR,
@@ -76,7 +78,6 @@ const addBoard = (data) => async dispatch => {
 const initialState = {
   boards: [],
   board: null,
-  loading: false,
   error: null
 };
 
@@ -86,11 +87,13 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_BOARDS:
-      return { ...state, boards: action.payload, loading: false, error: null };
+      return { ...state, boards: action.payload, error: null };
     case GET_BOARD:
-      return { ...state, board: action.payload, loading: false, error: null };
+      return { ...state, board: action.payload, error: null };
+    case ADD_BOARD:
+      return { ...state, boards: [...state.boards, action.payload], board: action.payload, error: null };
     case BOARD_ERROR:
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, error: action.payload };
     default:
       return state;
   }

@@ -20,7 +20,7 @@ export default (client) => mockServer([
     methods: fetchLists
   },
   {
-    path: '/lists/:id',
+    path: '/list/:id',
     methods: fetchListById
   },
   {
@@ -32,7 +32,7 @@ export default (client) => mockServer([
     methods: fetchCards
   },
   {
-    path: '/cards/:id',
+    path: '/card/:id',
     methods: fetchCardById
   },
   {
@@ -44,7 +44,7 @@ export default (client) => mockServer([
     methods: fetchBoards
   },
   {
-    path: '/boards/:id',
+    path: `/board`,
     methods: fetchBoardById
   }
 ], client, '')

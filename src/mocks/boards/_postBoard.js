@@ -30,15 +30,12 @@ export default {
    * @returns { Promise<MockResponse> }
    */
   async post({ data }) {
-    await new Promise(resolve => setTimeout(resolve, 1000))
-
+    await new Promise(resolve => setTimeout(resolve, 1000));
     boards.push({
       _id: uuidv4(),
-      title: data.title,
-      description: data.description,
-      priority: data.priority
+      title: data.title
     });
 
-    return { status: 201 };
+    return { status: 201, data: boards[boards.length-1] };
   }
 }

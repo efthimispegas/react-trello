@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { CircularProgress, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -9,8 +9,6 @@ import CreateBoard from './CreateBoard';
 import { actions as boardsActions } from '../redux/boards';
 
 const Dashboard = (props) => {
-  const [boards, setBoards] = useState([]);
-
   useEffect(() => {
     props.getBoards();
   }, []);
