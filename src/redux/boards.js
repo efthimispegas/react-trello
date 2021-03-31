@@ -77,9 +77,9 @@ const addBoard = (_data, history) => async dispatch => {
 };
 
 // Edit existing board
-const editBoard = ({ title, _id }) => async dispatch => {
+const editBoard = ({ title, id }) => async dispatch => {
   try {
-    const { data } = await axios.patch('/board/', { title, _id });
+    const { data } = await axios.patch('/board/edit', { title, id });
     dispatch({
       type: EDIT_BOARD,
       payload: data

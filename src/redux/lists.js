@@ -72,9 +72,9 @@ const addList = (_data, history) => async dispatch => {
 };
 
 // Edit existing list
-const editList = ({ title, _id }) => async dispatch => {
+const editList = ({ title, id }) => async dispatch => {
   try {
-    const { data } = await axios.patch('/list/', { title, _id });
+    const { data } = await axios.patch('/list/edit', { title, id });
     dispatch({
       type: EDIT_LIST,
       payload: data

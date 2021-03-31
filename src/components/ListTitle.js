@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// import { renameList } from '../../actions/board';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { TextField } from '@material-ui/core';
+import List from './List';
+import { actions as listsActions } from '../redux/lists';
 
-const ListTitle = ({ originalTitle }) => {
+const ListTitle = ({ lists, id, originalTitle, editList }) => {
   const [title, setTitle] = useState(originalTitle);
+
+  useEffect(() => {
+  }, [ lists ]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // dispatch(renameList(listId, { title }));
+    editList({ id, title });
   };
 
   return (
@@ -21,6 +26,24 @@ const ListTitle = ({ originalTitle }) => {
 
 ListTitle.propTypes = {
   originalTitle: PropTypes.string.isRequired,
+  lists: PropTypes.object.isRequired,
+  id: PropTypes.string. isRequired,
+  editList: PropTypes.func.isRequired
 };
 
-export default ListTitle;
+ListTitle.defaultProps = {};
+
+const mapStateToProps = state => {
+  return {
+    lists: state.lists.list
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getLists: bindActionCreators(listsActions.getLists, dispatch),
+    editList: bindActionCreators(listsActions.editList, dispatch)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListTitle);

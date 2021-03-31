@@ -1,14 +1,17 @@
 /* eslint-disable */
-import mockServer from 'axios-mock-server'
-import postList from './lists/_postList'
-import fetchLists from './lists/_fetchLists'
-import fetchListById from './lists/_fetchListById'
-import postCard from './cards/_postCard'
-import fetchCards from './cards/_fetchCards'
-import fetchCardById from './cards/_fetchCardById'
-import postBoard from './boards/_postBoard'
-import fetchBoards from './boards/_fetchBoards'
-import fetchBoardById from './boards/_fetchBoardById'
+import mockServer from 'axios-mock-server';
+import postList from './lists/_postList';
+import fetchLists from './lists/_fetchLists';
+import fetchListById from './lists/_fetchListById';
+import editList from './lists/_editList';
+import postCard from './cards/_postCard';
+import fetchCards from './cards/_fetchCards';
+import fetchCardById from './cards/_fetchCardById';
+import editCard from './cards/_editCard';
+import postBoard from './boards/_postBoard';
+import fetchBoards from './boards/_fetchBoards';
+import fetchBoardById from './boards/_fetchBoardById';
+import editBoard from './boards/_editBoard';
 
 export default (client) => mockServer([
   {
@@ -24,6 +27,10 @@ export default (client) => mockServer([
     methods: fetchListById
   },
   {
+    path: '/list/edit',
+    methods: editList
+  },
+  {
     path: '/cards/new',
     methods: postCard
   },
@@ -36,6 +43,10 @@ export default (client) => mockServer([
     methods: fetchCardById
   },
   {
+    path: '/card/edit',
+    methods: editCard
+  },
+  {
     path: '/boards/new',
     methods: postBoard
   },
@@ -46,5 +57,9 @@ export default (client) => mockServer([
   {
     path: `/board`,
     methods: fetchBoardById
+  },
+  {
+    path: '/board/edit',
+    methods: editBoard
   }
 ], client, '')

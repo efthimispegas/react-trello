@@ -13,14 +13,13 @@ const BoardTitle = ({ editBoard, originalTitle, board }) => {
   const [title, setTitle] = useState(originalTitle);
 
   useEffect(() => {
-
     setTitle(originalTitle);
   }, [setTitle, originalTitle]);
 
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    editBoard({ title, _id: board._id });
+    editBoard({ title, id: board._id });
   };
 
   if(!board || !originalTitle) {

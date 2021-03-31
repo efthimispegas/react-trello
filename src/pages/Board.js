@@ -41,9 +41,6 @@ const Board = ({ board, lists, match, getBoardById, getLists }) => {
         </div>
         <div className='lists'>
           {board.lists.map(list => {
-            console.log('===============');
-            console.log(`[List]: id ${list._id}`, list);
-            console.log('===============');
             return (
               <List
                 key={list._id}
@@ -76,7 +73,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getBoardById: bindActionCreators(boardsActions.getBoardById, dispatch),
-    getLists: bindActionCreators(listsActions.getLists, dispatch)
+    getLists: bindActionCreators(listsActions.getLists, dispatch),
   };
 };
 

@@ -1,5 +1,4 @@
 import lists from '../../data/lists';
-import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Type definitions for variables passed as arguments in requests
@@ -29,16 +28,14 @@ export default {
    * @param { MockMethodParams }
    * @returns { Promise<MockResponse> }
    */
-  async post({ data }) {
-    await new Promise(resolve => setTimeout(resolve, 1000))
+  async patch({ data }) {
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
-    lists.push({
-      _id: uuidv4(),
-      title: data.title,
-      description: data.description,
-      priority: data.priority
-    });
+    let updatedList = lists.find(list => list._id === data.id);
+    updatedList.title = data.title;
+    let updatedLists = lists.filter(list => list._id !== data.id)
+    updatedLists.push(updatedList);
 
-    return { status: 201, data: lists[lists.length-1] };
+    return { status: 201, lists: updatedLists[updatedList.length-1] };
   }
 }

@@ -72,9 +72,9 @@ const addCard = (_data, history) => async dispatch => {
 };
 
 // Edit existing card
-const editCard = ({ title, _id }) => async dispatch => {
+const editCard = ({ title, id }) => async dispatch => {
   try {
-    const { data } = await axios.patch('/card/', { title, _id });
+    const { data } = await axios.patch('/card/edit', { title, id });
     dispatch({
       type: EDIT_CARD,
       payload: data
