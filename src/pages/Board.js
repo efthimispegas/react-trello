@@ -4,16 +4,26 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { CircularProgress, Container } from '@material-ui/core'
 import { actions as boardsActions } from '../redux/boards';
+import { actions as listsActions } from '../redux/lists';
 import Navbar from '../components/Navbar';
+import BoardTitle from '../components/BoardTitle';
+import CreateList from '../components/CreateList';
+import List from '../components/List';
 
-const Board = ({ board, match, getBoardById }) => {
+const Board = ({ board, lists, match, getBoardById, getLists }) => {
 
   useEffect(() => {
-    getBoardById(match.params.id);
-    // console.log('===============');
-    // console.log('[Board] props:',board);
-    // console.log('===============');
-  }, [ getBoardById, match.params.id ]);
+    if(!board) {
+      getBoardById(match.params.id);
+    } else {
+      // console.log('===============');
+      // console.log('[Board] props: board',board);
+      // console.log('===============');
+      if(!lists.length) {
+        getLists();
+      }
+    }
+  }, [ board, lists ]);
 
   if (!board) {
     return (
@@ -25,7 +35,26 @@ const Board = ({ board, match, getBoardById }) => {
   return (
     <Fragment>
       <Navbar />
-      <div className='board'>{board.title}</div>
+      <section className='board'>
+        <div className='board-top'>
+          <BoardTitle originalTitle={board.title} />
+        </div>
+        <div className='lists'>
+          {board.lists.map(list => {
+            console.log('===============');
+            console.log(`[List]: id ${list._id}`, list);
+            console.log('===============');
+            return (
+              <List
+                key={list._id}
+                id={list._id}
+                originalTitle={list.title}
+              />
+            );
+          })}
+          <CreateList />
+        </div>
+      </section>
     </Fragment>
   );
 };
@@ -39,13 +68,15 @@ Board.defaultProps = {};
 
 const mapStateToProps = state => {
   return {
-    board: state.boards.board
+    board: state.boards.board,
+    lists: state.lists.lists
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getBoardById: bindActionCreators(boardsActions.getBoardById, dispatch)
+    getBoardById: bindActionCreators(boardsActions.getBoardById, dispatch),
+    getLists: bindActionCreators(listsActions.getLists, dispatch)
   };
 };
 

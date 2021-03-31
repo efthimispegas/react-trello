@@ -9,6 +9,8 @@ mock(axios).setDelayTime(500);
 const GET_BOARDS = 'GET_BOARDS';
 const GET_BOARD = 'GET_BOARD';
 const ADD_BOARD = 'ADD_BOARD';
+const EDIT_BOARD = 'EDIT_BOARD';
+const CLEAR_BOARD = 'CLEAR_BOARD';
 const BOARD_ERROR = 'BOARD_ERROR';
 
 // Action creators.
@@ -16,6 +18,7 @@ const BOARD_ERROR = 'BOARD_ERROR';
 // Get all boards
 const getBoards = () => async dispatch => {
   try {
+    dispatch({ type: CLEAR_BOARD });
     const { data } = await axios.get('/boards');
     dispatch({
       type: GET_BOARDS,
@@ -35,6 +38,7 @@ const getBoards = () => async dispatch => {
 // Get a specific board by id
 const getBoardById = id => async dispatch => {
   try {
+    dispatch({ type: CLEAR_BOARD });
     const { data } = await axios.get(`/board`, { params: { id } });
     dispatch({
       type: GET_BOARD,
@@ -72,6 +76,25 @@ const addBoard = (_data, history) => async dispatch => {
   }
 };
 
+// Edit existing board
+const editBoard = ({ title, _id }) => async dispatch => {
+  try {
+    const { data } = await axios.patch('/board/', { title, _id });
+    dispatch({
+      type: EDIT_BOARD,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: {
+        msg: error.responseStatusText,
+        status: error.response.status
+      }
+    });
+  }
+};
+
 // State.
 
 // Creates the initial state.
@@ -92,6 +115,10 @@ const reducer = (state = initialState, action) => {
       return { ...state, board: action.payload, error: null };
     case ADD_BOARD:
       return { ...state, boards: [...state.boards, action.payload], board: action.payload, error: null };
+    case EDIT_BOARD:
+      return { ...state, board: action.payload, error: null };
+    case CLEAR_BOARD:
+      return { ...state, board: null, error: null };
     case BOARD_ERROR:
       return { ...state, error: action.payload };
     default:
@@ -103,7 +130,8 @@ const reducer = (state = initialState, action) => {
 const actions = {
   getBoards,
   getBoardById,
-  addBoard
+  addBoard,
+  editBoard
 };
 
 export {

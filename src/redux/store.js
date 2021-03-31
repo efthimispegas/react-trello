@@ -3,6 +3,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import * as boards from './boards';
+import * as lists from './lists';
+import * as cards from './cards';
 
 // Create logger
 const logger = createLogger({ diff: true, collapsed: true });
@@ -11,8 +13,12 @@ const logger = createLogger({ diff: true, collapsed: true });
 const middleWare = [thunk, logger];
 
 const rootReducer = combineReducers({
-  // Reducer for alerts
-  boards: boards.reducer
+  // Reducer for boards
+  boards: boards.reducer,
+  // Reducer for lists
+  lists: lists.reducer,
+  // Reducer for cards
+  cards: cards.reducer,
 });
 
 // Configure store

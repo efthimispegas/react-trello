@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Navbar from '../components/Navbar';
-import CreateBoard from './CreateBoard';
+import CreateBoard from '../components/CreateBoard';
 import { actions as boardsActions } from '../redux/boards';
 
 const Dashboard = (props) => {
