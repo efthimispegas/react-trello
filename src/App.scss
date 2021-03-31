@@ -166,31 +166,18 @@ a {
 // Board
 
 .board {
-  padding: 20px;
-  background-color: #ccc;
+  padding: 10px;
+  background-color: snow;
   height: 95.5vh;
 }
 
 .board-top {
   height: 4vh;
-}
-
-.lists {
   display: flex;
   flex-direction: row;
-  overflow-x: auto;
-  height: 88vh;
+  justify-content: space-between;
 }
 
-.list {
-  background-color: #eee;
-  border-radius: 5px;
-  min-width: 280px;
-  height: fit-content;
-  margin-top: 10px;
-  margin-right: 10px;
-  padding: 10px;
-}
 
 .create-list-button {
   margin-top: 10px;
@@ -201,4 +188,27 @@ a {
   min-width: 200px;
   display: flex;
   flex-direction: column;
+}
+
+.lists {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  height: 90vh;
+
+  .list-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .list {
+    background-color: #eee;
+    border-radius: 5px;
+    min-width: 280px;
+    height: fit-content;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 10px;
+  }
 }

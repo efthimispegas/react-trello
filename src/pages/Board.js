@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,21 +9,38 @@ import Navbar from '../components/Navbar';
 import BoardTitle from '../components/BoardTitle';
 import CreateList from '../components/CreateList';
 import List from '../components/List';
+import BoardDrawer from '../components/BoardDrawer';
 
-const Board = ({ board, lists, match, getBoardById, getLists }) => {
+const Board = ({ board, lists, archived, match, getBoardById, getLists }) => {
+  const [ prevLists, setPrevLists ] = useState(lists);
+  const [ prevArchived, setPrevArchived ] = useState(archived);
 
   useEffect(() => {
     if(!board) {
       getBoardById(match.params.id);
-    } else {
-      // console.log('===============');
-      // console.log('[Board] props: board',board);
-      // console.log('===============');
-      if(!lists.length) {
-        getLists();
-      }
     }
-  }, [ board, lists ]);
+    if(!lists.length) {
+      getLists();
+    }
+    if(prevLists.length !== lists.length) {
+      setPrevLists(lists);
+      console.log('===============');
+      console.log('prevLists.length:',prevLists.length);
+      console.log('===============');
+      console.log('===============');
+      console.log('cureentLists.length:',lists.length);
+      console.log('===============');
+    }
+    if(archived.length !== prevArchived.length) {
+      setPrevArchived(lists);
+      console.log('===============');
+      console.log('prevArchived.length:',prevArchived.length);
+      console.log('===============');
+      console.log('===============');
+      console.log('currentArchived.length:',archived.length);
+      console.log('===============');
+    }
+  }, [ board, lists, lists.length, archived.length ]);
 
   if (!board) {
     return (
@@ -38,9 +55,10 @@ const Board = ({ board, lists, match, getBoardById, getLists }) => {
       <section className='board'>
         <div className='board-top'>
           <BoardTitle originalTitle={board.title} />
+          <BoardDrawer />
         </div>
         <div className='lists'>
-          {board.lists.map(list => {
+          {prevLists.map(list => {
             return (
               <List
                 key={list._id}
@@ -66,7 +84,8 @@ Board.defaultProps = {};
 const mapStateToProps = state => {
   return {
     board: state.boards.board,
-    lists: state.lists.lists
+    lists: state.lists.lists,
+    archived: state.lists.archived
   };
 };
 

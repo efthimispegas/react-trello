@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from '../utils/modalStyles';
-import { actions as boardActions } from '../redux/boards';
+import { actions as listsActions } from '../redux/lists';
 
-const CreateList = (props) => {
+const CreateList = ({ addList }) => {
   const classes = useStyles();
   const [adding, setAdding] = useState(false);
   const [title, setTitle] = useState('');
@@ -61,7 +61,7 @@ const CreateList = (props) => {
 };
 
 CreateList.propTypes = {
-  addBoard: PropTypes.func.isRequired
+  addList: PropTypes.func.isRequired
 };
 CreateList.defaultProps = {};
 
@@ -71,7 +71,7 @@ const mapStateToProps = state => {
 
 const mapDispathToProps = dispatch => {
   return {
-    addBoard: bindActionCreators(boardActions.addBoard, dispatch)
+    addList: bindActionCreators(listsActions.addList, dispatch)
   };
 };
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions as cardsActions } from '../redux/cards';
 import ListTitle from './ListTitle';
+import ListMenu from './ListMenu';
 
 const List = ({ originalTitle, id, cards, getCards }) => {
 
@@ -18,6 +19,7 @@ const List = ({ originalTitle, id, cards, getCards }) => {
     <div className='list'>
       <div className='list-top'>
         <ListTitle id={id} originalTitle={originalTitle} />
+        <ListMenu id={id} />
       </div>
     </div>
   );

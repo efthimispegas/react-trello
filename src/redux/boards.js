@@ -38,7 +38,6 @@ const getBoards = () => async dispatch => {
 // Get a specific board by id
 const getBoardById = id => async dispatch => {
   try {
-    dispatch({ type: CLEAR_BOARD });
     const { data } = await axios.get(`/board`, { params: { id } });
     dispatch({
       type: GET_BOARD,

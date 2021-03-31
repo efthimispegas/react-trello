@@ -10,6 +10,7 @@ const GET_LISTS = 'GET_LISTS';
 const GET_LIST = 'GET_LIST';
 const ADD_LIST = 'ADD_LIST';
 const EDIT_LIST = 'EDIT_LIST';
+const ARCHIVE_LIST = 'ARCHIVE_LIST';
 const LIST_ERROR = 'LIST_ERROR';
 
 // Action creators.
@@ -90,12 +91,32 @@ const editList = ({ title, id }) => async dispatch => {
   }
 };
 
+// Archive existing list
+const archiveList = ({ id }) => async dispatch => {
+  try {
+    const { data } = await axios.delete('/list/archive', { params: { id } });
+    dispatch({
+      type: ARCHIVE_LIST,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: LIST_ERROR,
+      payload: {
+        msg: error.responseStatusText,
+        status: error.response.status
+      }
+    });
+  }
+};
+
 // State.
 
 // Creates the initial state.
 const initialState = {
   lists: [],
   list: null,
+  archived: [],
   error: null
 };
 
@@ -112,6 +133,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, lists: [...state.lists, action.payload], list: action.payload, error: null };
     case EDIT_LIST:
       return { ...state, list: action.payload, error: null };
+    case ARCHIVE_LIST:
+      return { ...state, list: null, lists: state.lists.filter(list => list._id !== action.payload._id), archived: [...state.archived, action.payload], error: null };
     case LIST_ERROR:
       return { ...state, error: action.payload };
     default:
@@ -124,7 +147,8 @@ const actions = {
   getLists,
   getListById,
   addList,
-  editList
+  editList,
+  archiveList
 };
 
 export {
