@@ -5,11 +5,9 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import useStyles from '../utils/modalStyles';
 import { actions as listsActions } from '../redux/lists';
 
 const CreateList = ({ addList }) => {
-  const classes = useStyles();
   const [adding, setAdding] = useState(false);
   const [title, setTitle] = useState('');
 
@@ -21,7 +19,7 @@ const CreateList = ({ addList }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // props.addBoard({ title }, props.history);
+    addList({ title });
   };
 
   if(!adding) {
@@ -37,7 +35,7 @@ const CreateList = ({ addList }) => {
     <div className='create-list-form'>
       <form onSubmit={(e) => onSubmit(e)}>
         <TextField
-          variant='outlined'
+          variant='filled'
           margin='normal'
           required
           id='title'

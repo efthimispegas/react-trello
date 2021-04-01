@@ -55,7 +55,7 @@ const getListById = id => async dispatch => {
 };
 
 // Create a new list
-const addList = (_data, history) => async dispatch => {
+const addList = (_data) => async dispatch => {
   try {
     const { data } = await axios.post('/lists/new', _data);
     dispatch({

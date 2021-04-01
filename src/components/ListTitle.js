@@ -19,7 +19,10 @@ const ListTitle = ({ lists, id, originalTitle, editList }) => {
 
   return (
     <form onSubmit={(e) => onSubmit(e)}>
-      <TextField required value={title} onChange={(e) => setTitle(e.target.value)} />
+      <TextField
+        required
+        value={title}
+        onChange={(e) => setTitle(e.target.value)} />
     </form>
   );
 };

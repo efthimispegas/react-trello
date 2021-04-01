@@ -32,19 +32,9 @@ const BoardTitle = ({ editBoard, originalTitle, board }) => {
     <form onSubmit={onSubmit}>
         <TextField
           required
-          id='title'
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        {/* <ThemeProvider theme={theme}>
-          <InputBase
-            value={title}
-            className={classes.margin}
-            defaultValue={originalTitle}
-            inputProps={{ 'aria-label': 'naked' }}
-            onChange={e => setTitle(e.target.value)}
-          />
-        </ThemeProvider> */}
       </form>
   );
 };

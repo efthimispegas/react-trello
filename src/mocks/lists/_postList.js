@@ -31,12 +31,13 @@ export default {
    */
   async post({ data }) {
     await new Promise(resolve => setTimeout(resolve, 1000))
-
+    console.log('===============');
+    console.log('[Axios] create new list with data :',data);
+    console.log('===============');
     lists.push({
       _id: uuidv4(),
       title: data.title,
-      description: data.description,
-      priority: data.priority
+      cards: []
     });
 
     return { status: 201, data: lists[lists.length-1] };
