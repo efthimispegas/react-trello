@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TextField, Card, CardActions, CardContent, Button, CircularProgress } from '@material-ui/core';
@@ -9,6 +10,7 @@ import useStyles from '../utils/cardStyles';
 const TaskCard = ({ id, card, originalTitle, getCards, cards }) => {
   const classes = useStyles();
   const [ title, setTitle ] = useState(originalTitle);
+  const [ mouseOver, setMouseOver ] = useState(false);
 
   useEffect(() => {
   }, []);
@@ -25,7 +27,11 @@ const TaskCard = ({ id, card, originalTitle, getCards, cards }) => {
   }
 
   return (
-    <Card className={classes.root}>
+    <Card
+      // onMouseEnter={() => setMouseOver(true)}
+      // onMouseLeave={() => setMouseOver(false)}
+      className={classes.root}
+    >
       <CardContent>
         <form onSubmit={onSubmit}>
           <TextField

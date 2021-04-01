@@ -212,11 +212,33 @@ a {
       justify-content: space-between;
     }
 
+    .list-action {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+
     .cards {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin: 5px 0;
+    }
+
+    .mouse-over {
+      background-color: #e5e5e5;
+    }
+
+    .create-card-form {
+      padding: 0;
+      border: none;
+      color: #333;
+      font-size: 1rem;
+      background-color: lightgrey;
+      &:hover {
+        background-color: darkgrey;
+      }
+      cursor: pointer;
     }
   }
 }

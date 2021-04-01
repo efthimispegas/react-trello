@@ -15,9 +15,9 @@ const CARD_ERROR = 'CARD_ERROR';
 // Action creators.
 
 // Get all cards
-const getCards = ({ id }) => async dispatch => {
+const getCards = () => async dispatch => {
   try {
-    const { data } = await axios.get('/cards', { params: { id } });
+    const { data } = await axios.get('/cards');
     dispatch({
       type: GET_CARDS,
       payload: data
@@ -53,9 +53,9 @@ const getCardById = id => async dispatch => {
 };
 
 // Create a new card
-const addCard = (_data, history) => async dispatch => {
+const addCard = (_data, listId) => async dispatch => {
   try {
-    const { data } = await axios.post('/cards/new', _data);
+    const { data } = await axios.post('/cards/new', _data );
     dispatch({
       type: ADD_CARD,
       payload: data
@@ -109,7 +109,7 @@ const reducer = (state = initialState, action) => {
     case GET_CARD:
       return { ...state, card: action.payload, error: null };
     case ADD_CARD:
-      return { ...state, cards: [...state.cards, action.payload], card: action.payload, error: null };
+      return { ...state, cards: [...action.payload.cards], card: action.payload.card, error: null };
     case EDIT_CARD:
       return { ...state, card: action.payload, error: null };
     case CARD_ERROR:

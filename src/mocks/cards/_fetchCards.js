@@ -28,11 +28,7 @@ export default {
    * @param { MockMethodParams }
    * @returns { MockResponse }
    */
-  get({ params }) {
-    const found = cards.filter(card => card.list_id === params.id);
-    // console.log('===============');
-    // console.log('[Axios] cards to return:',found);
-    // console.log('===============');
-    return [200, found];
+  get() {
+    return [200, cards];
   }
 };

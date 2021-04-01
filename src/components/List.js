@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -10,10 +10,12 @@ import TaskCard from './Card';
 import CreateCard from './CreateCard';
 
 const List = ({ originalTitle, id, cards, lists }) => {
+  const [ prevCards, setPrevCards ] = useState(cards);
   useEffect(() => {
-    if(lists.lists.length) {
+    if(prevCards.length !== cards.length) {
+      setPrevCards(cards);
     }
-  }, [cards.length]);
+  }, [prevCards.length, cards.length]);
 
   return (
     <div className='list'>
@@ -22,18 +24,22 @@ const List = ({ originalTitle, id, cards, lists }) => {
         <ListMenu id={id} />
       </div>
       <Container component='div' maxWidth='xs' className='cards'>
-        {lists.lists.find(l => l._id === id).cards.map(card => {
-          return (
-            <TaskCard
-              key={card._id}
-              id={card._id}
-              originalTitle={card.title}
-              card={card}
-            />
-          )
+        {prevCards.map(card => {
+          if(card.list_id === id) {
+            return (
+              <TaskCard
+                key={card._id}
+                id={card._id}
+                originalTitle={card.title}
+                card={card}
+              />
+            );
+          }
         })}
       </Container>
-      <CreateCard />
+      <Container component='div' className='list-action'>
+        <CreateCard listId={id}/>
+      </Container>
     </div>
   );
 };
@@ -42,7 +48,7 @@ List.propTypes = {
   originalTitle: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   cards: PropTypes.array.isRequired,
-  lists: PropTypes.object.isRequired
+  lists: PropTypes.object.isRequired,
 };
 
 List.defaultProps = {};

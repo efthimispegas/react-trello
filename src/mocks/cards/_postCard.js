@@ -30,15 +30,19 @@ export default {
    * @returns { Promise<MockResponse> }
    */
   async post({ data }) {
-    await new Promise(resolve => setTimeout(resolve, 1000))
-
-    cards.push({
+    console.log('===============');
+    console.log('[Axios] data:',data);
+    console.log('===============');
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    const newCard = {
       _id: uuidv4(),
       title: data.title,
       description: data.description,
-      priority: data.priority
-    });
+      priority: data.priority,
+      list_id: data.list_id
+    };
+    cards.push(newCard);
 
-    return { status: 201 };
+    return [201, {cards, card: newCard}];
   }
 };
