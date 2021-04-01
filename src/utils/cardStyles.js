@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
   modal: {
     padding: theme.spacing(16)
   },
+  // Also class of the modal for create card
   paper: {
     marginTop: theme.spacing(1),
     display: 'flex',
@@ -19,12 +20,21 @@ const useStyles = makeStyles((theme) => ({
     color: 'black',
     backgroundColor: 'snow'
   },
+  content: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'nowrap'
+  },
   title: {
     fontSize: 14,
   },
   button: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
+  icon: {
+    color: 'lightgrey'
+  }
 }));
 
 export default useStyles;

@@ -30,9 +30,6 @@ export default {
    * @returns { Promise<MockResponse> }
    */
   async post({ data }) {
-    console.log('===============');
-    console.log('[Axios] data:',data);
-    console.log('===============');
     await new Promise(resolve => setTimeout(resolve, 1000));
     const newCard = {
       _id: uuidv4(),

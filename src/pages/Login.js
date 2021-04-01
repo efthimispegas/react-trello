@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
+import classnames from 'classnames';
 import { Button, Container, CssBaseline, Typography, TextField, Grid, ThemeProvider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import useStyles from '../utils/formStyles';
-import theme from '../utils/theme';
 import Navbar from '../components/Navbar';
 
 
@@ -32,41 +32,39 @@ const Login = () => {
   return (
     <Fragment>
       <Navbar />
-      <Container component='main' maxWidth='xs' className={classes.container}>
+      <Container component='main' maxWidth='xs' className={classnames(classes.container, 'auth')}>
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component='h1' variant='h4'>React Trello</Typography>
         <Typography component='h1' variant='h5'>Sign In</Typography>
       </div>
       <form className={classes.form} onSubmit={onSubmit}>
-          <ThemeProvider theme={theme}>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              id='email'
-              label='Email Address'
-              name='email'
-              autoComplete='email'
-              autoFocus
-              value={email}
-              onChange={onChange}
-            />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              name='password'
-              label='Password'
-              type='password'
-              id='password'
-              autoComplete='current-password'
-              value={password}
-              onChange={onChange}
-            />
-          </ThemeProvider>
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            id='email'
+            label='Email Address'
+            name='email'
+            autoComplete='email'
+            autoFocus
+            value={email}
+            onChange={onChange}
+          />
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            name='password'
+            label='Password'
+            type='password'
+            id='password'
+            autoComplete='current-password'
+            value={password}
+            onChange={onChange}
+          />
           <Button
             type='submit'
             fullWidth

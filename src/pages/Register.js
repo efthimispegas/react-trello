@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
+import classnames from 'classnames';
 import { Button, Container, CssBaseline, Typography, TextField, Grid, ThemeProvider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import useStyles from '../utils/formStyles';
-import theme from '../utils/theme';
 import Navbar from '../components/Navbar';
 
 
@@ -32,77 +32,75 @@ const Register = () => {
   return (
     <Fragment>
       <Navbar />
-      <Container component='main' maxWidth='xs' className={classes.container}>
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Typography component='h1' variant='h4'>React Trello</Typography>
-        <Typography component='h1' variant='h5'>Sign Up</Typography>
-      </div>
-      <form className={classes.form} onSubmit={onSubmit}>
-          <ThemeProvider theme={theme}>
-            <Grid container spacing={2} >
-              <Grid item xs={12}>
-                <TextField
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
-                  id='name'
-                  label='Full Name'
-                  name='name'
-                  autoFocus
-                  value={name}
-                  onChange={onChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='email'
-                  label='Email Address'
-                  type='email'
-                  id='email'
-                  autoComplete='email'
-                  value={email}
-                  onChange={onChange}
-                />
-              </Grid>
+        <Container component='main' maxWidth='xs' className={classnames(classes.container, 'auth')}>
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Typography component='h1' variant='h4'>React Trello</Typography>
+          <Typography component='h1' variant='h5'>Sign Up</Typography>
+        </div>
+        <form className={classes.form} onSubmit={onSubmit}>
+          <Grid container spacing={2} >
+            <Grid item xs={12}>
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                id='name'
+                label='Full Name'
+                name='name'
+                autoFocus
+                value={name}
+                onChange={onChange}
+              />
             </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='password'
-                  label='Password'
-                  type='password'
-                  id='password'
-                  autoComplete='current-password'
-                  value={password}
-                  onChange={onChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='password2'
-                  label='Confirm Password'
-                  type='password'
-                  id='password2'
-                  value={password2}
-                  onChange={onChange}
-                />
-              </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                name='email'
+                label='Email Address'
+                type='email'
+                id='email'
+                autoComplete='email'
+                value={email}
+                onChange={onChange}
+              />
             </Grid>
-          </ThemeProvider>
+          </Grid>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                name='password'
+                label='Password'
+                type='password'
+                id='password'
+                autoComplete='current-password'
+                value={password}
+                onChange={onChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                name='password2'
+                label='Confirm Password'
+                type='password'
+                id='password2'
+                value={password2}
+                onChange={onChange}
+              />
+            </Grid>
+          </Grid>
           <Button
             type='submit'
             fullWidth
@@ -120,7 +118,7 @@ const Register = () => {
             </Grid>
           </Grid>
         </form>
-    </Container>
+      </Container>
     </Fragment>
 );
 };

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TextField } from '@material-ui/core';
-import List from './List';
 import { actions as listsActions } from '../redux/lists';
 
 const ListTitle = ({ lists, id, originalTitle, editList }) => {
@@ -22,7 +21,8 @@ const ListTitle = ({ lists, id, originalTitle, editList }) => {
       <TextField
         required
         value={title}
-        onChange={(e) => setTitle(e.target.value)} />
+        onChange={(e) => setTitle(e.target.value)}
+      />
     </form>
   );
 };
