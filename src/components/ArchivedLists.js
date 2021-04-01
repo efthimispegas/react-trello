@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List, Button, ListItem, ListItemText } from '@material-ui/core';
+import { actions as listsActions } from '../redux/lists';
 
-const ArchivedLists = ({ lists, archived }) => {
+const ArchivedLists = ({ archived, unarchiveList }) => {
 
   useEffect(() => {
     // console.log('===============');
@@ -11,9 +13,8 @@ const ArchivedLists = ({ lists, archived }) => {
     // console.log('===============');
   }, []);
 
-  const onSubmit = (listId) => {
-    console.log(listId);
-    // dispatch();
+  const onSubmit = (id) => {
+    unarchiveList({ id, archived })
   };
 
   return (
@@ -32,16 +33,22 @@ const ArchivedLists = ({ lists, archived }) => {
   );
 };
 
+ArchivedLists.propTypes = {
+  archived: PropTypes.array.isRequired,
+  unarchiveList: PropTypes.func.isRequired
+};
+
+ArchivedLists.defaultProps = {};
+
 const mapStateToProps = state => {
   return {
-    lists: state.lists.lists,
     archived: state.lists.archived
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    unarchiveList: bindActionCreators(listsActions.unarchiveList, dispatch)
   };
 };
 

@@ -5,6 +5,7 @@ import fetchLists from './lists/_fetchLists';
 import fetchListById from './lists/_fetchListById';
 import editList from './lists/_editList';
 import archiveList from './lists/_archiveList';
+import unarchiveList from './lists/_unarchiveList';
 import postCard from './cards/_postCard';
 import fetchCards from './cards/_fetchCards';
 import fetchCardById from './cards/_fetchCardById';
@@ -34,6 +35,10 @@ export default (client) => mockServer([
   {
     path: '/list/archive',
     methods: archiveList
+  },
+  {
+    path: '/list/unarchive',
+    methods: unarchiveList
   },
   {
     path: '/cards/new',

@@ -24,22 +24,13 @@ const Board = ({ board, lists, archived, match, getBoardById, getLists }) => {
     }
     if(prevLists.length !== lists.length) {
       setPrevLists(lists);
-      console.log('===============');
-      console.log('prevLists.length:',prevLists.length);
-      console.log('===============');
-      console.log('===============');
-      console.log('cureentLists.length:',lists.length);
-      console.log('===============');
     }
     if(archived.length !== prevArchived.length) {
       setPrevArchived(lists);
-      console.log('===============');
-      console.log('prevArchived.length:',prevArchived.length);
-      console.log('===============');
-      console.log('===============');
-      console.log('currentArchived.length:',archived.length);
-      console.log('===============');
     }
+    console.log('===============');
+    console.log('[Board] archived:',archived);
+    console.log('===============');
   }, [ board, lists, lists.length, archived.length ]);
 
   if (!board) {
