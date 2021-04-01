@@ -45,12 +45,6 @@ const lists = [
         "priority": 0
       },
       {
-        "_id": "",
-        "title": "",
-        "description": "",
-        "priority": 1
-      },
-      {
         "_id": "6061b228f060d9294e6086a7",
         "title": "reprehenderit fugiat voluptate",
         "description": "reprehenderit consequat voluptate esse nulla velit duis ipsum",

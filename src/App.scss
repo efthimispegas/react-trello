@@ -196,11 +196,6 @@ a {
   overflow-x: auto;
   height: 90vh;
 
-  .list-top {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
 
   .list {
     background-color: #eee;
@@ -210,5 +205,18 @@ a {
     margin-top: 10px;
     margin-right: 10px;
     padding: 10px;
+
+    .list-top {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .cards {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 5px 0;
+    }
   }
 }

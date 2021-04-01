@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions as ListsActions } from '../redux/lists';
 
-const ListMenu = ({ getLists, archiveList, id }) => {
+const ListMenu = ({ archiveList, id }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
@@ -63,7 +63,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getLists: bindActionCreators(ListsActions.getLists, dispatch),
     archiveList: bindActionCreators(ListsActions.archiveList, dispatch)
   }
 }

@@ -15,9 +15,9 @@ const CARD_ERROR = 'CARD_ERROR';
 // Action creators.
 
 // Get all cards
-const getCards = () => async dispatch => {
+const getCards = ({ id }) => async dispatch => {
   try {
-    const { data } = await axios.get('/cards');
+    const { data } = await axios.get('/cards', { params: { id } });
     dispatch({
       type: GET_CARDS,
       payload: data

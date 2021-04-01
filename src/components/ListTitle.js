@@ -26,7 +26,7 @@ const ListTitle = ({ lists, id, originalTitle, editList }) => {
 
 ListTitle.propTypes = {
   originalTitle: PropTypes.string.isRequired,
-  lists: PropTypes.object.isRequired,
+  lists: PropTypes.object,
   id: PropTypes.string. isRequired,
   editList: PropTypes.func.isRequired
 };

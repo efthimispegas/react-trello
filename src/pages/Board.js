@@ -28,9 +28,6 @@ const Board = ({ board, lists, archived, match, getBoardById, getLists }) => {
     if(archived.length !== prevArchived.length) {
       setPrevArchived(lists);
     }
-    console.log('===============');
-    console.log('[Board] archived:',archived);
-    console.log('===============');
   }, [ board, lists, lists.length, archived.length ]);
 
   if (!board) {
