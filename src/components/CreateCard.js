@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions as cardsActions } from '../redux/cards';
-import { TextField, Button, Modal, Container, Typography, Grid } from '@material-ui/core';
+import { Button, Modal } from '@material-ui/core';
+import CardModal from './cardModal/CardModal';
 import useStyles from '../utils/cardStyles';
 
-const CreateCard = ({ cards, addCard, listId }) => {
+const CreateCard = ({ addCard, listId }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const placeholders = [ 'title', 'priority', 'description' ];
   const [cardData, setCardData] = useState({ title: '', description: '', priority: 0 });
 
   const onChange = e => {
@@ -20,10 +22,10 @@ const CreateCard = ({ cards, addCard, listId }) => {
     });
   };
 
-  const onClose = () => {
+  const onModalClose = () => {
     setCardData({ title: '', description: '', priority: 0 })
     setOpen(false);
-  }
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -35,68 +37,6 @@ const CreateCard = ({ cards, addCard, listId }) => {
     setOpen(false);
   };
 
-  const body = (
-    <Container component='div' maxWidth='md' className={classes.paper}>
-      <Typography component='h2' variant='h5'>Create a card</Typography>
-      <form onSubmit={(e) => onSubmit(e)}>
-        <Grid container spacing={2}>
-          <Grid item md={6}>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              id='title'
-              label='Card title'
-              placeholder='New Card'
-              name='title'
-              autoFocus
-              value={cardData.title}
-              onChange={onChange}
-            />
-          </Grid>
-          <Grid item md={6}>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              id='title'
-              label='Priority'
-              placeholder='0'
-              name='priority'
-              value={cardData.priority}
-              onChange={onChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              multiline
-              id='description'
-              label='Description'
-              placeholder='Add a description here'
-              name='description'
-              value={cardData.description}
-              onChange={onChange}
-            />
-          </Grid>
-        </Grid>
-        <Button
-          type='submit'
-          fullWidth
-          variant='contained'
-          color='primary'
-          className={classes.button}
-        >
-          Add Card
-        </Button>
-      </form>
-    </Container>
-  );
   return (
     <div>
       <Button
@@ -105,8 +45,19 @@ const CreateCard = ({ cards, addCard, listId }) => {
       >
         Add a card
       </Button>
-      <Modal open={open} onClose={onClose} className={classes.modal}>
-        {body}
+      <Modal
+        open={open}
+        onClose={onModalClose}
+        className={classes.modal}
+      >
+        <CardModal
+          title='Create card'
+          placeholders={placeholders}
+          cardData={cardData}
+          onChange={onChange}
+          onModalClose={onModalClose}
+          onSubmit={onSubmit}
+        />
       </Modal>
     </div>
   );

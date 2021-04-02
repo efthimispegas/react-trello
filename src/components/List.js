@@ -3,24 +3,40 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions as cardsActions } from '../redux/cards';
+import { actions as listsActions } from '../redux/lists';
 import { Container } from '@material-ui/core';
-import ListTitle from './ListTitle';
-import ListMenu from './ListMenu';
 import TaskCard from './Card';
+import ListMenu from './ListMenu';
 import CreateCard from './CreateCard';
+import ListTitle from '../components/title/Title';
 
-const List = ({ originalTitle, id, cards, lists }) => {
+const List = ({ originalTitle, id, cards, editList }) => {
   const [ prevCards, setPrevCards ] = useState(cards);
+  const [ title, setTitle ] = useState(originalTitle);
+
   useEffect(() => {
     if(prevCards.length !== cards.length) {
       setPrevCards(cards);
     }
   }, [prevCards.length, cards.length]);
 
+  const onChange = e => {
+    setTitle(e.target.value)
+  }
+
+  const onSubmit = async e => {
+    e.preventDefault();
+    editList({ id, title });
+  };
+
   return (
     <div className='list'>
       <div className='list-top'>
-        <ListTitle id={id} originalTitle={originalTitle} />
+        <ListTitle
+          title={title}
+          onChange={onChange}
+          onSubmit={onSubmit}
+        />
         <ListMenu id={id} />
       </div>
       <Container component='div' maxWidth='xs' className='cards'>
@@ -49,6 +65,7 @@ List.propTypes = {
   id: PropTypes.string.isRequired,
   cards: PropTypes.array.isRequired,
   lists: PropTypes.object.isRequired,
+  editList: PropTypes.func.isRequired
 };
 
 List.defaultProps = {};
@@ -62,7 +79,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCards: bindActionCreators(cardsActions.getCards, dispatch)
+    getCards: bindActionCreators(cardsActions.getCards, dispatch),
+    editList: bindActionCreators(listsActions.editList, dispatch)
   };
 };
 

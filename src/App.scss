@@ -16,6 +16,16 @@ a {
   }
 }
 
+.MuiIconButton-root.icon.edit {
+  color: #2642fb;
+}
+.MuiIconButton-root.icon.delete {
+  color: #e10c25;
+}
+.MuiIconButton-root.icon.unfocused {
+  color: 'lightgrey'
+}
+
 // Navbar
 
 .navbar {
