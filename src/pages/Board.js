@@ -85,7 +85,6 @@ const Board = ({
 
 Board.propTypes = {
   // Required props
-  board: PropTypes.object.isRequired,
   lists: PropTypes.array.isRequired,
   cards: PropTypes.array.isRequired,
   getBoardById: PropTypes.func.isRequired,
@@ -93,6 +92,7 @@ Board.propTypes = {
   getCards: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   // Optional props
+  board: PropTypes.object,
   archived: PropTypes.array,
 };
 

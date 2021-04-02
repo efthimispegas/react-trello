@@ -108,6 +108,13 @@ a {
   .MuiInputBase-input {
     color: white;
   }
+
+  .MuiInputLabel-root {
+    color: white;
+    &focused {
+      color: white;
+    }
+  }
 }
 
 // Dashboard

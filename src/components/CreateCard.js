@@ -63,7 +63,7 @@ const CreateCard = ({ cards, addCard, listId }) => {
               fullWidth
               id='title'
               label='Priority'
-              placeholder={0}
+              placeholder='0'
               name='priority'
               value={cardData.priority}
               onChange={onChange}
