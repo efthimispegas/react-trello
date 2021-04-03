@@ -16,14 +16,6 @@ const theme = createMuiTheme({
       'input': {
         color: '#333'
       },
-    },
-    MuiInputLabel: {
-      'root': {
-        color: 'white',
-        '&$focused': {
-          color: 'white'
-        }
-      },
     }
   }
 });

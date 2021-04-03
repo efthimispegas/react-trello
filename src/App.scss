@@ -108,6 +108,13 @@ a {
   .MuiInputBase-input {
     color: white;
   }
+
+  .MuiInputLabel-root {
+    color: white;
+    &focused {
+      color: white;
+    }
+  }
 }
 
 // Dashboard
@@ -171,6 +178,35 @@ a {
 }
 
 // Board
+
+.MuiIconButton-root .icon .edit {
+  color: #2642fb;
+}
+.MuiIconButton-root .icon .delete {
+  color: #e10c25;
+}
+.MuiIconButton-root .icon .unfocused {
+  color: 'lightgrey'
+}
+
+.title {
+  .MuiInput-underline::before {
+    border-bottom: 0 !important;
+  }
+
+  .MuiInput-underline::after {
+    transform: scaleX(0) !important;
+    transition: transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms !important;
+    border-bottom: 0 !important;
+  }
+}
+
+.MuiTextField-root.title.focused {
+  padding-left: 3px;
+  padding-top: 1px;
+  border-radius: 2px;
+  background-color: #d7d6d6;
+}
 
 .board {
   padding: 10px;

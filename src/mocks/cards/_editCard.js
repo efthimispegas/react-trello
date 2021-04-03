@@ -29,13 +29,16 @@ export default {
    * @returns { Promise<MockResponse> }
    */
   async patch({ data }) {
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 200));
+    let position;
+    let updatedCards = cards.filter((card, i) => {
+      position = i;
+      if(card._id !== data.card._id) {
+        return true;
+      }
+    });
+    updatedCards[position] = data.card;
 
-    let updatedCard = cards.find(card => card._id === data.id);
-    updatedCard.title = data.title;
-    let updatedCards = cards.filter(card => card._id !== data.id)
-    updatedCards.push(updatedCard);
-
-    return { status: 201, cards: updatedCards[updatedCard.length-1] };
+    return [201, { cards: updatedCards, card: updatedCards[position] } ];
   }
 }

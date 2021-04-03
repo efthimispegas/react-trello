@@ -6,12 +6,11 @@ import { CircularProgress, Container } from '@material-ui/core'
 import { actions as boardsActions } from '../redux/boards';
 import { actions as listsActions } from '../redux/lists';
 import { actions as cardsActions } from '../redux/cards';
-import Navbar from '../components/Navbar';
-import BoardTitle from '../components/BoardTitle';
-import CreateList from '../components/CreateList';
 import List from '../components/List';
+import Navbar from '../components/Navbar';
+import CreateList from '../components/CreateList';
+import BoardTitle from '../components/title/Title';
 import BoardDrawer from '../components/BoardDrawer';
-import cards from '../data/cards';
 
 const Board = ({
   board,
@@ -19,14 +18,17 @@ const Board = ({
   cards,
   archived,
   match,
+  editBoard,
   getBoardById,
   getLists,
   getCards
 }) => {
+  const [ prevBoard, setBoard ] = useState(board);
   const [ prevLists, setPrevLists ] = useState(lists);
   const [ prevArchived, setPrevArchived ] = useState(archived);
 
   useEffect(() => {
+    // Fetch data on first load
     if(!board) {
       getBoardById(match.params.id);
     }
@@ -36,6 +38,14 @@ const Board = ({
     if(!cards.length) {
       getCards();
     }
+    // Every time the board props change, we update the state
+    if(board !== prevBoard) {
+      setBoard(prevBoard);
+      if(!prevBoard) {
+        // On first load, set state to the board from props
+        setBoard(board);
+      }
+    }
     if(prevLists.length !== lists.length) {
       setPrevLists(lists);
     }
@@ -44,14 +54,24 @@ const Board = ({
     }
   }, [
     board,
+    prevBoard,
     lists.length,
     cards.length,
-    prevLists.length,
     archived.length,
+    prevLists.length,
     prevArchived.length
   ]);
 
-  if (!board) {
+  const onChange = e => {
+    setBoard({ ...prevBoard, title: e.target.value });
+  };
+
+  const onSubmit = async e => {
+    e.preventDefault();
+    editBoard({ title: prevBoard.title, id: board._id });
+  };
+
+  if (!board || !prevBoard) {
     return (
       <Container component='main' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <CircularProgress />
@@ -63,7 +83,11 @@ const Board = ({
       <Navbar />
       <section className='board'>
         <div className='board-top'>
-          <BoardTitle originalTitle={board.title} />
+          <BoardTitle
+            title={prevBoard.title}
+            onChange={onChange}
+            onSubmit={onSubmit}
+          />
           <BoardDrawer />
         </div>
         <div className='lists'>
@@ -85,14 +109,15 @@ const Board = ({
 
 Board.propTypes = {
   // Required props
-  board: PropTypes.object.isRequired,
   lists: PropTypes.array.isRequired,
   cards: PropTypes.array.isRequired,
   getBoardById: PropTypes.func.isRequired,
   getLists: PropTypes.func.isRequired,
+  editBoard: PropTypes.func.isRequired,
   getCards: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   // Optional props
+  board: PropTypes.object,
   archived: PropTypes.array,
 };
 
@@ -111,6 +136,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getBoardById: bindActionCreators(boardsActions.getBoardById, dispatch),
     getLists: bindActionCreators(listsActions.getLists, dispatch),
+    editBoard: bindActionCreators(boardsActions.editBoard, dispatch),
     getCards: bindActionCreators(cardsActions.getCards, dispatch)
   };
 };
