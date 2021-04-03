@@ -10,7 +10,7 @@ import { actions as cardsActions } from '../redux/cards';
 import useStyles from '../utils/cardStyles';
 import CardModal from './cardModal/CardModal';
 
-const TaskCard = ({ card, originalTitle }) => {
+const TaskCard = ({ editCard, card, originalTitle }) => {
   const classes = useStyles();
   const [ cardData, setCardData ] = useState(card);
   const [ placeholders, setPlaceholders ] = useState([ card.title, card.priority, card.description ]);
@@ -18,7 +18,6 @@ const TaskCard = ({ card, originalTitle }) => {
   const [ mouseOverEdit, setMouseOverEdit ] = useState(false);
   const [ mouseOverDelete, setMouseOverDelete ] = useState(false);
   const [ open, setOpen ] = useState(false);
-
   useEffect(() => {
     if(!placeholders.length && card) {
       setPlaceholders([
@@ -27,7 +26,7 @@ const TaskCard = ({ card, originalTitle }) => {
         card.description
       ]);
     }
-  }, [ placeholders.length, card ]);
+  }, [ placeholders.length ]);
 
   const onEditCard = () => {
     // Open modal to edit card details
@@ -41,7 +40,7 @@ const TaskCard = ({ card, originalTitle }) => {
   const onSubmitEdit = e => {
     e.preventDefault();
     // Dispatch update card action
-
+    editCard({ card: cardData });
     // Close modal
     setOpen(false);
     setMouseOverCard(false);
@@ -75,7 +74,12 @@ const TaskCard = ({ card, originalTitle }) => {
       <CardContent className={classes.content}>
         <Grid container className={classes.content}>
           <Grid xs={8} item>
-            <Typography component='p' variant='body1'>{card.title}</Typography>
+            <Typography component='p' variant='body1'>{cardData.title}</Typography>
+            <Typography component='p' variant='body2'>
+              {cardData.description.length > 25 ?
+              `${cardData.description.substr(0,22)}...` :
+              cardData.description}
+            </Typography>
           </Grid>
           <Grid item xs={2}>
             <IconButton
@@ -120,6 +124,7 @@ const TaskCard = ({ card, originalTitle }) => {
 TaskCard.propTypes = {
   card: PropTypes.object.isRequired,
   originalTitle: PropTypes.string.isRequired,
+  editCard: PropTypes.func.isRequired,
   key: PropTypes.string,
   id: PropTypes.string
 };
@@ -134,7 +139,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCards: bindActionCreators(cardsActions.getCards, dispatch)
+    getCards: bindActionCreators(cardsActions.getCards, dispatch),
+    editCard: bindActionCreators(cardsActions.editCard, dispatch)
   };
 };
 

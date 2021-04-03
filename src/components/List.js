@@ -10,7 +10,12 @@ import ListMenu from './ListMenu';
 import CreateCard from './CreateCard';
 import ListTitle from '../components/title/Title';
 
-const List = ({ originalTitle, id, cards, editList }) => {
+const List = ({
+  originalTitle,
+  id,
+  cards,
+  editList
+}) => {
   const [ prevCards, setPrevCards ] = useState(cards);
   const [ title, setTitle ] = useState(originalTitle);
 

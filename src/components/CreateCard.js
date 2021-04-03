@@ -10,7 +10,7 @@ import useStyles from '../utils/cardStyles';
 const CreateCard = ({ addCard, listId }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const placeholders = [ 'title', 'priority', 'description' ];
+  const placeholders = [ 'Title', 'Priority', 'Description' ];
   const [cardData, setCardData] = useState({ title: '', description: '', priority: 0 });
 
   const onChange = e => {

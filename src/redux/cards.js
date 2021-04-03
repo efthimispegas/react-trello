@@ -72,9 +72,9 @@ const addCard = (_data, listId) => async dispatch => {
 };
 
 // Edit existing card
-const editCard = ({ title, id }) => async dispatch => {
+const editCard = ({ card }) => async dispatch => {
   try {
-    const { data } = await axios.patch('/card/edit', { title, id });
+    const { data } = await axios.patch('/card/edit', { card });
     dispatch({
       type: EDIT_CARD,
       payload: data
@@ -111,7 +111,7 @@ const reducer = (state = initialState, action) => {
     case ADD_CARD:
       return { ...state, cards: [...action.payload.cards], card: action.payload.card, error: null };
     case EDIT_CARD:
-      return { ...state, card: action.payload, error: null };
+      return { ...state, cards: [...action.payload.cards], card: action.payload.card, error: null };
     case CARD_ERROR:
       return { ...state, error: action.payload };
     default:

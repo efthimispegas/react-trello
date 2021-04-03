@@ -12,10 +12,6 @@ const ListMenu = ({ archiveList, id }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
-
-    // console.log('===============');
-    // console.log('[ListMenu] id:',id);
-    // console.log('===============');
   }, []);
 
   const handleClick = (event) => {
@@ -24,7 +20,11 @@ const ListMenu = ({ archiveList, id }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const onArchiveThisList = () => {
     archiveList({ id });
+    setAnchorEl(null);
   };
 
   return (
@@ -42,7 +42,7 @@ const ListMenu = ({ archiveList, id }) => {
         <MenuItem onClick={handleClose}>
           <MoreHorizIcon />
         </MenuItem>
-        <MenuItem onClick={handleClose}>Archive This List</MenuItem>
+        <MenuItem onClick={onArchiveThisList}>Archive This List</MenuItem>
       </Menu>
     </div>
   );

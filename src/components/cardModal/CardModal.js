@@ -47,12 +47,14 @@ const CardModal = ({
               margin='normal'
               required
               fullWidth
-              id='title'
+              id='priority'
               label='Priority'
-              placeholder={toString(placeholders[1])}
+              type='number'
               name='priority'
-              value={cardData.priority}
               onChange={onChange}
+              value={cardData.priority}
+              placeholder={placeholders[1]}
+              InputLabelProps={{ shrink: true }}
             />
           </Grid>
           <Grid item xs={12}>
