@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -6,12 +6,6 @@ import { List, Button, ListItem, ListItemText } from '@material-ui/core';
 import { actions as listsActions } from '../redux/lists';
 
 const ArchivedLists = ({ archived, unarchiveList }) => {
-
-  useEffect(() => {
-    // console.log('===============');
-    // console.log('[Archive] archived:',archived);
-    // console.log('===============');
-  }, []);
 
   const onSubmit = (id) => {
     unarchiveList({ id, archived })

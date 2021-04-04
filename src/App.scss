@@ -179,16 +179,6 @@ a {
 
 // Board
 
-.MuiIconButton-root .icon .edit {
-  color: #2642fb;
-}
-.MuiIconButton-root .icon .delete {
-  color: #e10c25;
-}
-.MuiIconButton-root .icon .unfocused {
-  color: 'lightgrey'
-}
-
 .title {
   .MuiInput-underline::before {
     border-bottom: 0 !important;
@@ -233,17 +223,19 @@ a {
   flex-direction: column;
 }
 
+// List
+
 .lists {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
   height: 90vh;
 
-
-  .list {
+  .list-wrapper {
     background-color: #eee;
     border-radius: 5px;
     min-width: 280px;
+    max-width: 280px;
     height: fit-content;
     margin-top: 10px;
     margin-right: 10px;
@@ -255,38 +247,46 @@ a {
       justify-content: space-between;
     }
 
+    .list {
+      max-height: 76vh;
+      overflow-y: auto;
+
+      .cards {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 5px 0;
+
+        .mouse-over {
+          background-color: #ebebebcd;
+          cursor: grab;
+
+        }
+
+        .edit {
+          color: #2642fb;
+        }
+        .delete {
+          color: #e10c25;
+        }
+        .unfocused {
+          color: lightgrey
+        }
+
+        .hide {
+          display: none;
+        }
+      }
+
+
+    }
+
     .list-action {
       display: flex;
       flex-direction: row;
       justify-content: center;
     }
 
-    .cards {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 5px 0;
-    }
 
-    .mouse-over {
-      background-color: #ebebebcd;
-      cursor: grab;
-    }
-
-    .hide {
-      display: none;
-    }
-
-    .create-card-form {
-      padding: 0;
-      border: none;
-      color: #333;
-      font-size: 1rem;
-      background-color: lightgrey;
-      &:hover {
-        background-color: darkgrey;
-      }
-      cursor: pointer;
-    }
   }
 }

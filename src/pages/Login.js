@@ -77,7 +77,7 @@ const Login = () => {
           <Grid container justify='flex-end' className={classes.grid}>
             <Grid item>
               <Link to='/register' variant='body2'>
-                Don't have an account? Sign Up
+                Don&apos;t have an account? Sign Up
               </Link>
             </Grid>
           </Grid>

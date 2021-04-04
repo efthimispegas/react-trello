@@ -1,21 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, TextField, Container, Grid, Typography } from '@material-ui/core';
+import classnames from 'classnames';
 import CloseIcon from '@material-ui/icons/Close';
-import useStyles from '../../utils/cardStyles';
+import {
+  Button,
+  TextField,
+  Container,
+  Grid,
+  Typography
+} from '@material-ui/core';
+import MoveCard from '../../MoveCard';
+import useStyles from '../../../utils/cardStyles';
 
 const CardModal = ({
-  onModalClose,
-  onSubmit,
-  placeholders,
   title,
+  listId,
+  onSubmit,
+  disabled,
   cardData,
   onChange,
+  onModalClose,
+  placeholders,
+  onDeleteCard,
+  onArchiveCard
 }) => {
   const classes = useStyles();
 
   return (
-    <Container component='div' maxWidth='md' className={classes.paper}>
+    <Container component='div' maxWidth='md' className={classnames('card-modal', classes.paper)}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Button onClick={onModalClose}>
@@ -23,7 +35,7 @@ const CardModal = ({
           </Button>
         </Grid>
       </Grid>
-      <Typography component='h2' variant='h5'>{title}</Typography>
+      <Typography variant='h6'>{title}</Typography>
       <form onSubmit={onSubmit}>
         <Grid container spacing={2}>
           <Grid item md={6}>
@@ -61,7 +73,6 @@ const CardModal = ({
             <TextField
               variant='outlined'
               margin='normal'
-              required
               fullWidth
               multiline
               rowsMax={5}
@@ -74,15 +85,49 @@ const CardModal = ({
             />
           </Grid>
         </Grid>
-        <Grid container direction='row' alignItems='center' justify='center' className={classes.content}>
-          <Grid item xs={4}>
+        <Grid container wrap='nowrap' alignItems='flex-end' spacing={2}>
+          <Grid item xs={8}>
+            <MoveCard
+              listId={listId}
+              cardId={cardData._id}
+            />
+          </Grid>
+          <Grid container xs={4} direction='column' alignItems='flex-end'>
+            <Grid item className={classes.content}>
+              <Button
+                type='submit'
+                variant='contained'
+                color='secondary'
+                disabled={disabled}
+                onClick={onDeleteCard}
+                className={classes.button}
+              >
+                Delete Card
+              </Button>
+            </Grid>
+            <Grid item className={classes.content}>
+              <Button
+                type='submit'
+                variant='contained'
+                disabled={disabled}
+                onClick={onArchiveCard}
+                className={classes.button}
+              >
+                Archive Card
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid container justify='center'>
+          <Grid item xs={4} className={classes.content}>
             <Button
               type='submit'
               variant='contained'
               color='primary'
               className={classes.button}
             >
-              Save Changes
+              Save All Changes
             </Button>
           </Grid>
         </Grid>
@@ -92,12 +137,16 @@ const CardModal = ({
 };
 
 CardModal.proTypes = {
-  onClose: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  listId: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  placeholders: PropTypes.array.isRequired,
-  title: PropTypes.string.isRequired,
   cardData: PropTypes.array.isRequired,
+  onModalClose: PropTypes.func.isRequired,
+  onDeleteCard: PropTypes.func.isRequired,
+  onArchiveCard: PropTypes.func.isRequired,
+  placeholders: PropTypes.array.isRequired,
 };
 
 CardModal.defaultProps = {};

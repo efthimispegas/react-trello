@@ -10,6 +10,10 @@ import postCard from './cards/_postCard';
 import fetchCards from './cards/_fetchCards';
 import fetchCardById from './cards/_fetchCardById';
 import editCard from './cards/_editCard';
+import moveCard from './cards/_moveCard';
+import deleteCard from './cards/_deleteCard';
+import archiveCard from './cards/_archiveCard';
+import unarchiveCard from './cards/_unarchiveCard';
 import postBoard from './boards/_postBoard';
 import fetchBoards from './boards/_fetchBoards';
 import fetchBoardById from './boards/_fetchBoardById';
@@ -55,6 +59,22 @@ export default (client) => mockServer([
   {
     path: '/card/edit',
     methods: editCard
+  },
+  {
+    path: '/card/move',
+    methods: moveCard
+  },
+  {
+    path: '/card/delete',
+    methods: deleteCard
+  },
+  {
+    path: '/card/archive',
+    methods: archiveCard
+  },
+  {
+    path: '/card/unarchive',
+    methods: unarchiveCard
   },
   {
     path: '/boards/new',

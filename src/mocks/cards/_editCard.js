@@ -1,5 +1,3 @@
-import cards from '../../data/cards';
-
 /**
  * Type definitions for variables passed as arguments in requests
  * @typedef { Object } MockMethodParams
@@ -31,7 +29,7 @@ export default {
   async patch({ data }) {
     await new Promise(resolve => setTimeout(resolve, 200));
     let position;
-    let updatedCards = cards.filter((card, i) => {
+    let updatedCards = data.cards.filter((card, i) => {
       position = i;
       if(card._id !== data.card._id) {
         return true;

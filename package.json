@@ -50,6 +50,8 @@
   },
   "devDependencies": {
     "axios-mock-server": "^0.19.1",
+    "eslint": "^7.23.0",
+    "eslint-plugin-react": "^7.23.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6"
   }
