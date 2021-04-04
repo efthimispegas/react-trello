@@ -8,22 +8,34 @@ import { Container } from '@material-ui/core';
 import TaskCard from './Card';
 import ListMenu from './ListMenu';
 import CreateCard from './CreateCard';
-import ListTitle from '../components/title/Title';
+import ListTitle from './common/title/Title';
 
 const List = ({
   originalTitle,
   id,
   cards,
+  list,
   editList
 }) => {
+  const [ prevList, setPrevList ] = useState(list);
   const [ prevCards, setPrevCards ] = useState(cards);
   const [ title, setTitle ] = useState(originalTitle);
-
   useEffect(() => {
     if(prevCards.length !== cards.length) {
       setPrevCards(cards);
     }
-  }, [prevCards.length, cards.length]);
+    if(!prevList.length) {
+      setPrevList(list);
+    }
+  }, [prevCards.length, prevList.length, list.length, cards.length]);
+
+  useEffect(() => {
+    setPrevCards(cards);
+  }, [cards]);
+
+  useEffect(() => {
+    setPrevList(list);
+  }, [list]);
 
   const onChange = e => {
     setTitle(e.target.value)
@@ -35,7 +47,7 @@ const List = ({
   };
 
   return (
-    <div className='list'>
+    <div className='list-wrapper'>
       <div className='list-top'>
         <ListTitle
           title={title}
@@ -44,20 +56,23 @@ const List = ({
         />
         <ListMenu id={id} />
       </div>
-      <Container component='div' maxWidth='xs' className='cards'>
-        {prevCards.map(card => {
-          if(card.list_id === id) {
-            return (
-              <TaskCard
-                key={card._id}
-                id={card._id}
-                originalTitle={card.title}
-                card={card}
-              />
-            );
-          }
-        })}
-      </Container>
+      <div className='list'>
+        <Container component='div' maxWidth='xs' className='cards'>
+          {prevCards.sort((a, b) => b.position - a.position).map(card => {
+            if(card.list_id === id) {
+              return (
+                <TaskCard
+                  key={card._id}
+                  id={card._id}
+                  originalTitle={card.title}
+                  card={card}
+                  listId={id}
+                />
+              );
+            }
+          })}
+        </Container>
+      </div>
       <Container component='div' className='list-action'>
         <CreateCard listId={id}/>
       </Container>
@@ -69,7 +84,7 @@ List.propTypes = {
   originalTitle: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   cards: PropTypes.array.isRequired,
-  lists: PropTypes.object.isRequired,
+  list: PropTypes.object.isRequired,
   editList: PropTypes.func.isRequired
 };
 
@@ -77,7 +92,7 @@ List.defaultProps = {};
 
 const mapStateToProps = state => {
   return {
-    lists: state.lists,
+    lists: state.lists.lists,
     cards: state.cards.cards
   };
 };

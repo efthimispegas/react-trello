@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions as cardsActions } from '../redux/cards';
 import { Button, Modal } from '@material-ui/core';
-import CardModal from './cardModal/CardModal';
+import CardModal from './common/cardModal/CardModal';
 import useStyles from '../utils/cardStyles';
 
 const CreateCard = ({ addCard, listId }) => {
@@ -43,7 +43,7 @@ const CreateCard = ({ addCard, listId }) => {
         variant='contained'
         onClick={() => setOpen(true)}
       >
-        Add a card
+        + Add a card
       </Button>
       <Modal
         open={open}
@@ -57,6 +57,7 @@ const CreateCard = ({ addCard, listId }) => {
           onChange={onChange}
           onModalClose={onModalClose}
           onSubmit={onSubmit}
+          listId={listId}
         />
       </Modal>
     </div>

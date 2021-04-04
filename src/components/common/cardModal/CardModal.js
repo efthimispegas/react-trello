@@ -1,21 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, TextField, Container, Grid, Typography } from '@material-ui/core';
+import classnames from 'classnames';
 import CloseIcon from '@material-ui/icons/Close';
-import useStyles from '../../utils/cardStyles';
+import {
+  Button,
+  TextField,
+  Container,
+  Grid,
+  Typography
+} from '@material-ui/core';
+import MoveCard from '../../MoveCard';
+import useStyles from '../../../utils/cardStyles';
 
 const CardModal = ({
   onModalClose,
   onSubmit,
   placeholders,
   title,
+  listId,
   cardData,
   onChange,
 }) => {
   const classes = useStyles();
 
   return (
-    <Container component='div' maxWidth='md' className={classes.paper}>
+    <Container component='div' maxWidth='md' className={classnames('card-modal', classes.paper)}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Button onClick={onModalClose}>
@@ -23,7 +32,7 @@ const CardModal = ({
           </Button>
         </Grid>
       </Grid>
-      <Typography component='h2' variant='h5'>{title}</Typography>
+      <Typography variant='h6'>{title}</Typography>
       <form onSubmit={onSubmit}>
         <Grid container spacing={2}>
           <Grid item md={6}>
@@ -61,7 +70,6 @@ const CardModal = ({
             <TextField
               variant='outlined'
               margin='normal'
-              required
               fullWidth
               multiline
               rowsMax={5}
@@ -74,15 +82,21 @@ const CardModal = ({
             />
           </Grid>
         </Grid>
-        <Grid container direction='row' alignItems='center' justify='center' className={classes.content}>
-          <Grid item xs={4}>
+
+        <MoveCard
+          listId={listId}
+          cardId={cardData._id}
+        />
+
+        <Grid container justify='center'>
+          <Grid item xs={4} className={classes.content}>
             <Button
               type='submit'
               variant='contained'
               color='primary'
               className={classes.button}
             >
-              Save Changes
+              Save All Changes
             </Button>
           </Grid>
         </Grid>

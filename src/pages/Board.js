@@ -9,7 +9,7 @@ import { actions as cardsActions } from '../redux/cards';
 import List from '../components/List';
 import Navbar from '../components/Navbar';
 import CreateList from '../components/CreateList';
-import BoardTitle from '../components/title/Title';
+import BoardTitle from '../components/common/title/Title';
 import BoardDrawer from '../components/BoardDrawer';
 
 const Board = ({
@@ -97,6 +97,7 @@ const Board = ({
                 key={list._id}
                 id={list._id}
                 originalTitle={list.title}
+                list={list}
               />
             );
           })}
