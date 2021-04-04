@@ -10,6 +10,7 @@ const GET_LISTS = 'GET_LISTS';
 const GET_LIST = 'GET_LIST';
 const ADD_LIST = 'ADD_LIST';
 const EDIT_LIST = 'EDIT_LIST';
+const DRAG_LIST = 'DRAG_LIST';
 const ARCHIVE_LIST = 'ARCHIVE_LIST';
 const UNARCHIVE_LIST = 'UNARCHIVE_LIST';
 const LIST_ERROR = 'LIST_ERROR';
@@ -92,6 +93,25 @@ const editList = ({ title, id }) => async dispatch => {
   }
 };
 
+// Drag list
+const dragList = (moveInfo) => async dispatch => {
+  try {
+    const { data } = await axios.patch('/list/drag', moveInfo);
+    dispatch({
+      type: DRAG_LIST,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: LIST_ERROR,
+      payload: {
+        msg: error.responseStatusText,
+        status: error.response.status
+      }
+    });
+  }
+};
+
 // Archive existing list
 const archiveList = ({ id }) => async dispatch => {
   try {
@@ -153,6 +173,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, lists: [...state.lists, action.payload], list: action.payload, error: null };
     case EDIT_LIST:
       return { ...state, list: action.payload, error: null };
+    case DRAG_LIST:
+      return { ...state, lists: [ ...action.payload.lists ], list: action.payload.list, error: null };
     case ARCHIVE_LIST:
       return { ...state, list: null, lists: state.lists.filter(list => list._id !== action.payload._id), archived: [...state.archived, action.payload], error: null };
     case UNARCHIVE_LIST:
@@ -169,9 +191,10 @@ const actions = {
   getLists,
   getListById,
   addList,
+  dragList,
   editList,
   archiveList,
-  unarchiveList
+  unarchiveList,
 };
 
 export {

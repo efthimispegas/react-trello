@@ -11,6 +11,7 @@ const GET_CARD = 'GET_CARD';
 const ADD_CARD = 'ADD_CARD';
 const EDIT_CARD = 'EDIT_CARD';
 const MOVE_CARD = 'MOVE_CARD';
+const DRAG_CARD = 'DRAG_CARD';
 const DELETE_CARD = 'DELETE_CARD';
 const ARCHIVE_CARD = 'ARCHIVE_CARD';
 const UNARCHIVE_CARD = 'UNARCHIVE_CARD';
@@ -113,6 +114,25 @@ const moveCard = (moveInfo) => async dispatch => {
   }
 };
 
+// Drag card to a new position and/or list
+const dragCard = (moveInfo) => async dispatch => {
+  try {
+    const { data } = await axios.patch('/card/drag', moveInfo);
+    dispatch({
+      type: DRAG_CARD,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: CARD_ERROR,
+      payload: {
+        msg: error.responseStatusText,
+        status: error.response.status
+      }
+    });
+  }
+};
+
 // Delete card to a new position and/or list
 const deleteCard = ({ id, cards }) => async dispatch => {
   try {
@@ -195,6 +215,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, cards: [...action.payload.cards], card: action.payload.card, error: null };
     case MOVE_CARD:
       return { ...state, cards: [...action.payload.cards], card: action.payload.card, error: null };
+    case DRAG_CARD:
+      return { ...state, cards: [...action.payload.cards], card: action.payload.card, error: null };
     case DELETE_CARD:
       return { ...state, cards: [...action.payload.cards], card: null, error: null };
     case ARCHIVE_CARD:
@@ -215,6 +237,7 @@ const actions = {
   addCard,
   editCard,
   moveCard,
+  dragCard,
   deleteCard,
   archiveCard,
   unarchiveCard
