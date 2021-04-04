@@ -180,6 +180,8 @@ a {
 // Board
 
 .title {
+  font-size: 18px !important;
+  font-weight: 700 !important;
   .MuiInput-underline::before {
     border-bottom: 0 !important;
   }
@@ -248,6 +250,7 @@ a {
     }
 
     .list {
+      min-height: 1px;
       max-height: 76vh;
       overflow-y: auto;
 
@@ -286,7 +289,5 @@ a {
       flex-direction: row;
       justify-content: center;
     }
-
-
   }
 }

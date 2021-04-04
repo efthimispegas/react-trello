@@ -7,19 +7,21 @@ import { Card, CardContent, CircularProgress, Typography, Grid, Modal, IconButto
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SubjectIcon from '@material-ui/icons/Subject';
+import { Draggable } from 'react-beautiful-dnd';
 import { actions as cardsActions } from '../redux/cards';
 import useStyles from '../utils/cardStyles';
 import CardModal from './common/cardModal/CardModal';
 
 const TaskCard = ({
+  card,
+  index,
+  cards,
+  listId,
   editCard,
+  archived,
   deleteCard,
   archiveCard,
-  archived,
-  card,
-  cards,
-  originalTitle,
-  listId
+  originalTitle
 }) => {
   const classes = useStyles();
   const [ cardData, setCardData ] = useState(card);
@@ -89,64 +91,73 @@ const TaskCard = ({
     );
   }
   return (
-    <Card
-      onMouseEnter={() => setMouseOverCard(true)}
-      onMouseLeave={() => setMouseOverCard(false)}
-      className={classnames(classes.root, `${mouseOverCard ? 'mouse-over' : ''}`)}
-    >
-      <CardContent className={classes.content}>
-        <Grid container className={classes.content}>
-          <Grid xs={8} item>
-            <Typography component='p' variant='body1'>{cardData.title}</Typography>
-            <Grid container direction='row' alignItems='center' justify='flex-start'>
-            {cardData.description && <SubjectIcon fontSize='small' className={classes.description}/>}
-            <Typography component='p' variant='body2' className={classes.description}>
-              {cardData.description.length > 20 ?
-              `${cardData.description.substr(0,20)}...` :
-              cardData.description}
-            </Typography>
-            </Grid>
-          </Grid>
-          <Grid item xs={2}>
-            <IconButton
-              onClick={onEditCard}
-              onMouseEnter={() => setMouseOverEdit(true)}
-              onMouseLeave={() => setMouseOverEdit(false)}
-              className={classnames(`${mouseOverEdit ? 'edit' : 'unfocused'}`, `${mouseOverCard ? '' : 'hide'}`)}
-            >
-              <EditIcon fontSize='small'/>
-            </IconButton>
-          </Grid>
-          <Grid item xs={2}>
-            <IconButton
-              onClick={onDeleteCard}
-              onMouseEnter={() => setMouseOverDelete(true)}
-              onMouseLeave={() => setMouseOverDelete(false)}
-              className={classnames(`${mouseOverDelete ? 'delete' : 'unfocused'}`, `${mouseOverCard ? '' : 'hide'}`)}
-            >
-              <DeleteIcon fontSize='small'/>
-            </IconButton>
-          </Grid>
-        </Grid>
-        <Modal
-          open={open}
-          onClose={onModalClose}
-          className={classes.modal}
-        >
-          <CardModal
-            title='Edit card'
-            placeholders={placeholders}
-            cardData={cardData}
-            listId={listId}
-            onChange={onChange}
-            onModalClose={onModalClose}
-            onSubmit={onSubmitEdit}
-            onDeleteCard={onDeleteCard}
-            onArchiveCard={onArchiveCard}
-          />
-        </Modal>
-      </CardContent>
-    </Card>
+    <Draggable draggableId={card._id} index={index}>
+      {
+        provided => (
+          <Card
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            onMouseEnter={() => setMouseOverCard(true)}
+            onMouseLeave={() => setMouseOverCard(false)}
+            className={classnames(classes.root, `${mouseOverCard ? 'mouse-over' : ''}`)}
+          >
+            <CardContent className={classes.content}>
+              <Grid container className={classes.content}>
+                <Grid xs={8} item>
+                  <Typography component='p' variant='body1'>{cardData.title}</Typography>
+                  <Grid container direction='row' alignItems='center' justify='flex-start'>
+                  {cardData.description && <SubjectIcon fontSize='small' className={classes.description}/>}
+                  <Typography component='p' variant='body2' className={classes.description}>
+                    {cardData.description.length > 20 ?
+                    `${cardData.description.substr(0,20)}...` :
+                    cardData.description}
+                  </Typography>
+                  </Grid>
+                </Grid>
+                <Grid item xs={2}>
+                  <IconButton
+                    onClick={onEditCard}
+                    onMouseEnter={() => setMouseOverEdit(true)}
+                    onMouseLeave={() => setMouseOverEdit(false)}
+                    className={classnames(`${mouseOverEdit ? 'edit' : 'unfocused'}`, `${mouseOverCard ? '' : 'hide'}`)}
+                  >
+                    <EditIcon fontSize='small'/>
+                  </IconButton>
+                </Grid>
+                <Grid item xs={2}>
+                  <IconButton
+                    onClick={onDeleteCard}
+                    onMouseEnter={() => setMouseOverDelete(true)}
+                    onMouseLeave={() => setMouseOverDelete(false)}
+                    className={classnames(`${mouseOverDelete ? 'delete' : 'unfocused'}`, `${mouseOverCard ? '' : 'hide'}`)}
+                  >
+                    <DeleteIcon fontSize='small'/>
+                  </IconButton>
+                </Grid>
+              </Grid>
+              <Modal
+                open={open}
+                onClose={onModalClose}
+                className={classes.modal}
+              >
+                <CardModal
+                  title='Edit card'
+                  placeholders={placeholders}
+                  cardData={cardData}
+                  listId={listId}
+                  onChange={onChange}
+                  onModalClose={onModalClose}
+                  onSubmit={onSubmitEdit}
+                  onDeleteCard={onDeleteCard}
+                  onArchiveCard={onArchiveCard}
+                />
+              </Modal>
+            </CardContent>
+          </Card>
+        )
+      }
+    </Draggable>
   );
 };
 
@@ -155,6 +166,7 @@ TaskCard.propTypes = {
   key: PropTypes.string,
   cards: PropTypes.array.isRequired,
   card: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
   listId: PropTypes.string.isRequired,
   editCard: PropTypes.func.isRequired,
   archived: PropTypes.array.isRequired,

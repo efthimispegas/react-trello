@@ -2,6 +2,7 @@ const lists = [
   {
     "_id": "6061b4793168415b1c44504e",
     "title": "List 1",
+    "position": 0,
     "cards": [
       {
         "_id": "6061b228c7b08d619cd1c02b",
@@ -48,11 +49,13 @@ const lists = [
   {
     "_id": "6061b479a5f06654b7aac243",
     "title": "List 2",
+    "position": 1,
     "cards": []
   },
   {
     "_id": "6061b479d5e81c85eebbfa51",
     "title": "List 3",
+    "position": 2,
     "cards": [
       {
         "_id": "6061b228656cb5d70305c3d5",
@@ -75,6 +78,7 @@ const lists = [
   {
     "_id": "6061b4798443a29603b00145",
     "title": "List 4",
+    "position": 3,
     "cards": [
       {
         "_id": "6061b228f3c07d5c84f2e99e",
