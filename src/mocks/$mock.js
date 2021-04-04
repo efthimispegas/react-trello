@@ -10,6 +10,7 @@ import postCard from './cards/_postCard';
 import fetchCards from './cards/_fetchCards';
 import fetchCardById from './cards/_fetchCardById';
 import editCard from './cards/_editCard';
+import moveCard from './cards/_moveCard';
 import postBoard from './boards/_postBoard';
 import fetchBoards from './boards/_fetchBoards';
 import fetchBoardById from './boards/_fetchBoardById';
@@ -55,6 +56,10 @@ export default (client) => mockServer([
   {
     path: '/card/edit',
     methods: editCard
+  },
+  {
+    path: '/card/move',
+    methods: moveCard
   },
   {
     path: '/boards/new',

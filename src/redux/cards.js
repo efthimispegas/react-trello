@@ -10,6 +10,7 @@ const GET_CARDS = 'GET_CARDS';
 const GET_CARD = 'GET_CARD';
 const ADD_CARD = 'ADD_CARD';
 const EDIT_CARD = 'EDIT_CARD';
+const MOVE_CARD = 'MOVE_CARD';
 const CARD_ERROR = 'CARD_ERROR';
 
 // Action creators.
@@ -53,7 +54,7 @@ const getCardById = id => async dispatch => {
 };
 
 // Create a new card
-const addCard = (_data, listId) => async dispatch => {
+const addCard = (_data) => async dispatch => {
   try {
     const { data } = await axios.post('/cards/new', _data );
     dispatch({
@@ -90,6 +91,25 @@ const editCard = ({ card }) => async dispatch => {
   }
 };
 
+// Move card to a new position and/or list
+const moveCard = (moveInfo) => async dispatch => {
+  try {
+    const { data } = await axios.patch('/card/move', moveInfo);
+    dispatch({
+      type: MOVE_CARD,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: CARD_ERROR,
+      payload: {
+        msg: error.responseStatusText,
+        status: error.response.status
+      }
+    });
+  }
+};
+
 // State.
 
 // Creates the initial state.
@@ -112,6 +132,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, cards: [...action.payload.cards], card: action.payload.card, error: null };
     case EDIT_CARD:
       return { ...state, cards: [...action.payload.cards], card: action.payload.card, error: null };
+    case MOVE_CARD:
+      return { ...state, cards: [...action.payload.cards], card: action.payload.card, error: null };
     case CARD_ERROR:
       return { ...state, error: action.payload };
     default:
@@ -124,7 +146,8 @@ const actions = {
   getCards,
   getCardById,
   addCard,
-  editCard
+  editCard,
+  moveCard
 };
 
 export {

@@ -6,16 +6,16 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(0.5, 0.2)
   },
   modal: {
-    padding: theme.spacing(16)
+    padding: theme.spacing(2)
   },
   // Also class of the modal for create card
   paper: {
     marginTop: theme.spacing(4),
+    padding: theme.spacing(3, 3, 8, 3),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    padding: theme.spacing(3, 1, 8, 1),
-    borderRadius: 20,
+    alignItems: 'stretch',
+    borderRadius: 8,
     maxWidth: 800,
     maxHeight: 600,
     color: 'black',
@@ -25,15 +25,32 @@ const useStyles = makeStyles((theme) => ({
   content: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: 'center',
     flexWrap: 'nowrap'
   },
   title: {
     fontSize: 14,
+    fontWeight: 'bold'
+  },
+  description: {
+    color: '#8d8d8d',
+    fontSize: 14,
+    margin: 1
   },
   button: {
-    marginTop: theme.spacing(6),
-  }
+    marginTop: theme.spacing(4),
+  },
+  move: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: theme.spacing(2)
+  },
+  select: {
+    marginTop: 20,
+    marginRight: 20,
+    width: 200,
+  },
+
 }));
 
 export default useStyles;

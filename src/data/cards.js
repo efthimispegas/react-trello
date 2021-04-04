@@ -4,6 +4,7 @@ const cards = [
     "title": "deserunt consectetur amet",
     "description": "nostrud labore et incididunt est ullamco ullamco veniam",
     "priority": 0,
+    "position": 3,
     "list_id": "6061b4793168415b1c44504e"
   },
   {
@@ -11,6 +12,7 @@ const cards = [
     "title": "nisi deserunt anim",
     "description": "nostrud do veniam ullamco nostrud velit velit sunt",
     "priority": 1,
+    "position": 1,
     "list_id": "6061b4793168415b1c44504e"
   },
   {
@@ -18,6 +20,7 @@ const cards = [
     "title": "culpa ad est",
     "description": "esse eu in non cupidatat anim deserunt dolor",
     "priority": 1,
+    "position": 2,
     "list_id": "6061b4793168415b1c44504e"
   },
   {
@@ -25,6 +28,15 @@ const cards = [
     "title": "fugiat dolore eiusmod",
     "description": "eu veniam ea qui eu mollit laboris cupidatat",
     "priority": 0,
+    "position": 0,
+    "list_id": "6061b4793168415b1c44504e"
+  },
+  {
+    "_id": "6061b228b7f5f09973a9810e",
+    "title": "Lorem ad astera",
+    "description": "esse eu in non cupidatat anim deserunt dolor",
+    "priority": 1,
+    "position": 2,
     "list_id": "6061b4793168415b1c44504e"
   },
   {
@@ -32,6 +44,7 @@ const cards = [
     "title": "do culpa proident",
     "description": "officia velit anim laboris sit minim cupidatat ex",
     "priority": 1,
+    "position": 1,
     "list_id": "6061b479d5e81c85eebbfa51"
   },
   {
@@ -39,6 +52,7 @@ const cards = [
     "title": "reprehenderit fugiat voluptate",
     "description": "reprehenderit consequat voluptate esse nulla velit duis ipsum",
     "priority": 0,
+    "position": 0,
     "list_id": "6061b479d5e81c85eebbfa51"
   },
   {
@@ -46,6 +60,7 @@ const cards = [
     "title": "officia sunt ea",
     "description": "in nulla aliqua culpa in nisi dolore minim",
     "priority": 0,
+    "position": 0,
     "list_id": "6061b4798443a29603b00145"
   }
 ];
