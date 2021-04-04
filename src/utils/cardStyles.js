@@ -38,7 +38,11 @@ const useStyles = makeStyles((theme) => ({
     margin: 1
   },
   button: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(2),
+  },
+  cta: {
+    flexDirection: 'column',
+    alignItems: 'flex-end'
   },
   move: {
     display: 'flex',

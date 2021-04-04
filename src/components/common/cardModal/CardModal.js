@@ -20,6 +20,9 @@ const CardModal = ({
   listId,
   cardData,
   onChange,
+  onDeleteCard,
+  onArchiveCard,
+  disabled
 }) => {
   const classes = useStyles();
 
@@ -82,11 +85,39 @@ const CardModal = ({
             />
           </Grid>
         </Grid>
-
-        <MoveCard
-          listId={listId}
-          cardId={cardData._id}
-        />
+        <Grid container wrap='nowrap' alignItems='flex-end' spacing={2}>
+          <Grid item xs={8}>
+            <MoveCard
+              listId={listId}
+              cardId={cardData._id}
+            />
+          </Grid>
+          <Grid container xs={4} direction='column' alignItems='flex-end'>
+            <Grid item className={classes.content}>
+              <Button
+                type='submit'
+                variant='contained'
+                color='secondary'
+                disabled={disabled}
+                onClick={onDeleteCard}
+                className={classes.button}
+              >
+                Delete Card
+              </Button>
+            </Grid>
+            <Grid item className={classes.content}>
+              <Button
+                type='submit'
+                variant='contained'
+                disabled={disabled}
+                onClick={onArchiveCard}
+                className={classes.button}
+              >
+                Archive Card
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
 
         <Grid container justify='center'>
           <Grid item xs={4} className={classes.content}>
