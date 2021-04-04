@@ -64,7 +64,7 @@ const List = ({
       </div>
       <div className='list'>
         <Container component='div' maxWidth='xs' className='cards'>
-          {prevCards.sort((a, b) => b.position - a.position).map(card => {
+          {prevCards.sort((a, b) => a.position - b.position).map(card => {
             if(card.list_id === id) {
               return (
                 <TaskCard

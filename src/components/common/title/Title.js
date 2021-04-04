@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { TextField } from '@material-ui/core';
+import { Button, TextField, Typography } from '@material-ui/core';
 
 const Title = ({
   title,
@@ -10,21 +10,32 @@ const Title = ({
 }) => {
   const [ mouseOver, setMouseOver ] = useState(false);
   const [ focus, setFocus ] = useState(false);
+
+  const onSubmitChanges = e => {
+    setFocus(false);
+    onSubmit(e);
+  };
+
   return (
-    <form onSubmit={onSubmit} className={classnames('title')}>
-      <TextField
-        required
-        name='title'
-        value={title}
-        onChange={onChange}
-        onMouseOver={() => setMouseOver(true)}
-        onMouseLeave={() => setMouseOver(false)}
-        onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
-        className={classnames('title', `${ (mouseOver && !focus) || focus ? 'focused' : '' }`)}
-      />
+    focus ? (
+      <form onSubmit={onSubmitChanges} className={classnames('title')}>
+        <TextField
+          required
+          name='title'
+          value={title}
+          autoFocus
+          onChange={onChange}
+          onMouseOver={() => setMouseOver(true)}
+          onMouseLeave={() => setMouseOver(false)}
+          onBlur={() => setFocus(false)}
+          className={classnames('title', `${ (mouseOver && !focus) || focus ? 'focused' : '' }`)}
+        />
     </form>
-  );
+    ) : (
+      <div onClick={() => setFocus(true)}>
+        <Typography component='h6' variant='h6' className={classnames('title')}>{title}</Typography>
+      </div>
+    ));
 };
 
 Title.propTypes = {

@@ -180,6 +180,8 @@ a {
 // Board
 
 .title {
+  font-size: 18px !important;
+  font-weight: 700 !important;
   .MuiInput-underline::before {
     border-bottom: 0 !important;
   }
@@ -286,7 +288,5 @@ a {
       flex-direction: row;
       justify-content: center;
     }
-
-
   }
 }
