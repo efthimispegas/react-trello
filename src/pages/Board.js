@@ -16,16 +16,16 @@ const Board = ({
   board,
   lists,
   cards,
-  archived,
   match,
+  getCards,
+  getLists,
   editBoard,
   getBoardById,
-  getLists,
-  getCards
+  archivedLists,
 }) => {
   const [ prevBoard, setBoard ] = useState(board);
   const [ prevLists, setPrevLists ] = useState(lists);
-  const [ prevArchived, setPrevArchived ] = useState(archived);
+  const [ prevArchivedLists, setPrevArchivedLists ] = useState(archivedLists);
 
   useEffect(() => {
     // Fetch data on first load
@@ -49,17 +49,17 @@ const Board = ({
     if(prevLists.length !== lists.length) {
       setPrevLists(lists);
     }
-    if(archived.length !== prevArchived.length) {
-      setPrevArchived(lists);
+    if(archivedLists.length !== prevArchivedLists.length) {
+      setPrevArchivedLists(archivedLists);
     }
   }, [
     board,
     prevBoard,
     lists.length,
     cards.length,
-    archived.length,
     prevLists.length,
-    prevArchived.length
+    archivedLists.length,
+    prevArchivedLists.length,
   ]);
 
   const onChange = e => {
@@ -119,7 +119,7 @@ Board.propTypes = {
   match: PropTypes.object.isRequired,
   // Optional props
   board: PropTypes.object,
-  archived: PropTypes.array,
+  archivedLists: PropTypes.array,
 };
 
 Board.defaultProps = {};
@@ -129,7 +129,8 @@ const mapStateToProps = state => {
     board: state.boards.board,
     lists: state.lists.lists,
     cards: state.cards.cards,
-    archived: state.lists.archived
+    archivedCards: state.cards.archived,
+    archivedLists: state.lists.archived,
   };
 };
 

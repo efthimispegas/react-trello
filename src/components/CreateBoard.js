@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -11,12 +11,6 @@ const CreateBoard = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
-
-  useEffect(() => {
-    // console.log('===============');
-    // console.log('[CreateBoard]:',props);
-    // console.log('===============');
-  }, [])
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -60,7 +54,8 @@ const CreateBoard = (props) => {
 };
 
 CreateBoard.propTypes = {
-  addBoard: PropTypes.func.isRequired
+  addBoard: PropTypes.func.isRequired,
+  history: PropTypes.object
 };
 CreateBoard.defaultProps = {};
 

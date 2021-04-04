@@ -6,6 +6,7 @@ import ArchiveIcon from  '@material-ui/icons/Archive';
 import ChevronLeftIcon from  '@material-ui/icons/ChevronLeft';
 import { Drawer, List, ListItem, ListItemText, Divider, Button } from '@material-ui/core';
 import ArchivedLists from './ArchivedLists';
+import ArchivedCards from './ArchivedCards';
 
 import useStyles from '../utils/drawerStyles';
 
@@ -13,6 +14,7 @@ const BoardDrawer = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [ viewingArchivedLists, setViewingArchivedLists ]= useState(false);
+  const [ viewingArchivedCards, setViewingArchivedCards ]= useState(false);
 
   return (
     <div>
@@ -32,7 +34,7 @@ const BoardDrawer = () => {
           paper: classes.drawerPaper,
         }}
       >
-        {!viewingArchivedLists ? (
+        {!viewingArchivedLists && !viewingArchivedCards ? (
           <div>
             <div className={classes.drawerHeader}>
               <h3>Menu</h3>
@@ -48,23 +50,46 @@ const BoardDrawer = () => {
                 </ListItemIcon>
                 <ListItemText primary={'Archived Lists'} />
               </ListItem>
+              <ListItem button onClick={() => setViewingArchivedCards(true)}>
+                <ListItemIcon>
+                  <ArchiveIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Archived Cards'} />
+              </ListItem>
             </List>
           </div>
         ) : (
-          <div>
-            <div className={classes.drawerHeader}>
-              <Button onClick={() => setViewingArchivedLists(false)}>
-                <ChevronLeftIcon />
-              </Button>
-              <h3>Archived Lists</h3>
-              <Button onClick={() => setOpen(false)}>
-                <CloseIcon />
-              </Button>
+          !viewingArchivedCards && viewingArchivedLists ? (
+            <div>
+              <div className={classes.drawerHeader}>
+                <Button onClick={() => setViewingArchivedLists(false)}>
+                  <ChevronLeftIcon />
+                </Button>
+                <h3>Archived Lists</h3>
+                <Button onClick={() => setOpen(false)}>
+                  <CloseIcon />
+                </Button>
+              </div>
+              <Divider />
+              <ArchivedLists />
             </div>
-            <Divider />
-            <ArchivedLists />
+        ) : (
+          viewingArchivedCards && !viewingArchivedLists && (
+            <div>
+              <div className={classes.drawerHeader}>
+                <Button onClick={() => setViewingArchivedCards(false)}>
+                  <ChevronLeftIcon />
+                </Button>
+                <h3>Archived Cards</h3>
+                <Button onClick={() => setOpen(false)}>
+                  <CloseIcon />
+                </Button>
+              </div>
+              <Divider />
+              <ArchivedCards />
           </div>
-        )}
+          )
+        ))}
         <Divider />
       </Drawer>
     </div>

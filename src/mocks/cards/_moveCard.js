@@ -1,5 +1,3 @@
-import cards from '../../data/cards';
-
 /**
  * Type definitions for variables passed as arguments in requests
  * @typedef { Object } MockMethodParams
@@ -30,7 +28,7 @@ export default {
    */
   async patch({ data }) {
     await new Promise(resolve => setTimeout(resolve, 200));
-    let updatedCard = cards.find(card => {
+    let updatedCard = data.cards.find(card => {
       if(card._id === data.cardId) {
         card.position = data.position - 1;
         card.list_id = data.list_id
@@ -38,7 +36,7 @@ export default {
       }
     });
 
-    let updatedCards = cards.filter(card => card._id !== data.cardId);
+    let updatedCards = data.cards.filter(card => card._id !== data.cardId);
     updatedCards.push(updatedCard);
 
     return [201, { cards: updatedCards, card: updatedCard } ];

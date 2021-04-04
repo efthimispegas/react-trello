@@ -1,6 +1,3 @@
-import lists from '../../data/lists';
-import { v4 as uuidv4 } from 'uuid';
-
 /**
  * Type definitions for variables passed as arguments in requests
  * @typedef { Object } MockMethodParams
@@ -23,20 +20,17 @@ import { v4 as uuidv4 } from 'uuid';
  * @typedef { [number, any?, { [key: string]: any }?] | MockResponseObject } MockResponse
  */
 
-export default {
+ export default {
   /**
    * You can also return a response asynchronously
    * @param { MockMethodParams }
    * @returns { Promise<MockResponse> }
    */
-  async post({ data }) {
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    lists.push({
-      _id: uuidv4(),
-      title: data.title,
-      cards: []
-    });
-
-    return { status: 201, data: lists[lists.length-1] };
+  async delete({ params }) {
+    await new Promise(resolve => setTimeout(resolve, 200));
+    const archivedCard = params.cards.find(card => card._id === params.id);
+    const updatedCards = params.cards.filter(card => card._id !== params.id);
+    const archivedCards = [ ...params.archived, archivedCard ];
+    return [201, { archived: archivedCards, cards: updatedCards } ];
   }
 }

@@ -11,11 +11,12 @@ import CreateCard from './CreateCard';
 import ListTitle from './common/title/Title';
 
 const List = ({
-  originalTitle,
   id,
-  cards,
   list,
-  editList
+  cards,
+  editList,
+  archivedCards,
+  originalTitle,
 }) => {
   const [ prevList, setPrevList ] = useState(list);
   const [ prevCards, setPrevCards ] = useState(cards);
@@ -27,11 +28,16 @@ const List = ({
     if(!prevList.length) {
       setPrevList(list);
     }
-  }, [prevCards.length, prevList.length, list.length, cards.length]);
+  }, [
+    list.length,
+    cards.length,
+    prevList.length,
+    prevCards.length,
+  ]);
 
   useEffect(() => {
     setPrevCards(cards);
-  }, [cards]);
+  }, [cards, archivedCards]);
 
   useEffect(() => {
     setPrevList(list);
@@ -81,11 +87,12 @@ const List = ({
 };
 
 List.propTypes = {
-  originalTitle: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  cards: PropTypes.array.isRequired,
   list: PropTypes.object.isRequired,
-  editList: PropTypes.func.isRequired
+  cards: PropTypes.array.isRequired,
+  editList: PropTypes.func.isRequired,
+  archivedCards: PropTypes.array.isRequired,
+  originalTitle: PropTypes.string.isRequired,
 };
 
 List.defaultProps = {};
@@ -93,7 +100,9 @@ List.defaultProps = {};
 const mapStateToProps = state => {
   return {
     lists: state.lists.lists,
-    cards: state.cards.cards
+    cards: state.cards.cards,
+    archivedCards: state.cards.archived,
+    archivedLists: state.lists.archived,
   };
 };
 

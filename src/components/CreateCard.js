@@ -7,7 +7,11 @@ import { Button, Modal } from '@material-ui/core';
 import CardModal from './common/cardModal/CardModal';
 import useStyles from '../utils/cardStyles';
 
-const CreateCard = ({ addCard, listId }) => {
+const CreateCard = ({
+  addCard,
+  listId,
+  cards
+}) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const placeholders = [ 'Title', 'Priority', 'Description' ];
@@ -30,7 +34,7 @@ const CreateCard = ({ addCard, listId }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     // Dispatch a post card action
-    addCard({ ...cardData, list_id: listId });
+    addCard({ ...cardData, list_id: listId, cards });
     // Clear the create card form
     setCardData({ title: '', description: '', priority: 0 });
     // Close the modal
@@ -58,6 +62,7 @@ const CreateCard = ({ addCard, listId }) => {
           onModalClose={onModalClose}
           onSubmit={onSubmit}
           listId={listId}
+          disabled={true}
         />
       </Modal>
     </div>
@@ -65,8 +70,9 @@ const CreateCard = ({ addCard, listId }) => {
 };
 
 CreateCard.propTypes = {
+  cards: PropTypes.array.isRequired,
+  addCard: PropTypes.func.isRequired,
   listId: PropTypes.string.isRequired,
-  addCard: PropTypes.func.isRequired
 };
 
 CreateCard.defaultProps = {};

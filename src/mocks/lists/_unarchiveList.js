@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import lists from '../../data/lists';
 
 /**
@@ -39,9 +38,6 @@ export default {
     });
     archived = archived.filter(list => list._id !== putBackList._id);
     updatedLists.push(putBackList);
-    console.log('===============');
-    console.log('[Axios] updatedLists:',updatedLists);
-    console.log('===============');
     return [201, { lists: updatedLists, archived } ];
   }
 }

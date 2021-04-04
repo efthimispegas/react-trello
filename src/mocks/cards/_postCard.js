@@ -1,4 +1,3 @@
-import cards from '../../data/cards';
 import { v4 as uuidv4 } from 'uuid';
 
 /**
@@ -38,8 +37,8 @@ export default {
       priority: data.priority,
       list_id: data.list_id
     };
-    cards.push(newCard);
+    data.cards.push(newCard);
 
-    return [201, {cards, card: newCard}];
+    return [201, {cards: data.cards, card: newCard}];
   }
 };

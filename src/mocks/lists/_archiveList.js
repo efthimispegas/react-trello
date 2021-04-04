@@ -32,10 +32,6 @@ export default {
   async delete({ params }) {
     await new Promise(resolve => setTimeout(resolve, 1000));
     const archivedList = lists.find(list => list._id === params.id);
-    const updatedLists = lists.filter(list => list._id !== params.id);
-    console.log('===============');
-    console.log('[Axios] updatedLists:',updatedLists);
-    console.log('===============');
     return [201, archivedList ];
   }
 }

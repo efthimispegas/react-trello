@@ -49,26 +49,18 @@ const MoveCard = ({
   }, [thisList, cardId]);
 
   useEffect(() => {
-    // console.log('===============');
-    // console.log('listObject:',listObject);
-    // console.log('===============');
     listObject &&
     listObject.cards.length > 0 ?
     setPositions([ ...Array(listObject.cards.length).keys() ]) : setPositions([0]);
   }, [listObject]);
-
-  useEffect(() => {
-    // console.log('===============');
-    // console.log('[MoveCard] position:',position);
-    // console.log('===============');
-  }, [position]);
 
   const onMove = e => {
     e.preventDefault();
     const moveInfo = {
       cardId,
       list_id: listObject._id,
-      position
+      position,
+      cards
     };
     // Dispatch a move card action with the destination info
     moveCard(moveInfo);
@@ -129,6 +121,7 @@ const MoveCard = ({
 };
 
 MoveCard.propTypes = {
+  cards: PropTypes.array.isRequired,
   listId: PropTypes.string.isRequired,
   cardId: PropTypes.string.isRequired,
   lists: PropTypes.array.isRequired,

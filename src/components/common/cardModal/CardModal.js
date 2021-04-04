@@ -13,16 +13,16 @@ import MoveCard from '../../MoveCard';
 import useStyles from '../../../utils/cardStyles';
 
 const CardModal = ({
-  onModalClose,
-  onSubmit,
-  placeholders,
   title,
   listId,
+  onSubmit,
+  disabled,
   cardData,
   onChange,
+  onModalClose,
+  placeholders,
   onDeleteCard,
-  onArchiveCard,
-  disabled
+  onArchiveCard
 }) => {
   const classes = useStyles();
 
@@ -137,12 +137,16 @@ const CardModal = ({
 };
 
 CardModal.proTypes = {
-  onClose: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  listId: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  placeholders: PropTypes.array.isRequired,
-  title: PropTypes.string.isRequired,
   cardData: PropTypes.array.isRequired,
+  onModalClose: PropTypes.func.isRequired,
+  onDeleteCard: PropTypes.func.isRequired,
+  onArchiveCard: PropTypes.func.isRequired,
+  placeholders: PropTypes.array.isRequired,
 };
 
 CardModal.defaultProps = {};

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -10,12 +10,6 @@ import { actions as listsActions } from '../redux/lists';
 const CreateList = ({ addList }) => {
   const [adding, setAdding] = useState(false);
   const [title, setTitle] = useState('');
-
-  useEffect(() => {
-    // console.log('===============');
-    // console.log('[CreateList]:',props);
-    // console.log('===============');
-  }, [])
 
   const onSubmit = async (e) => {
     e.preventDefault();
